@@ -4,10 +4,17 @@
 }
 
 html {
-	width: 900px;
 	background-color: #1c1c1c;
 }
 
 body {
+	width: 1000px;
 	margin: auto;
+}
+
+#canvas {
+	margin-top: 15px;
+	border-style: solid;
+	border-color: #FFF;
+	border-width: 1px;
 }
