@@ -1,17 +1,14 @@
-importScript("js/model/entities/player.js");
 importScript("js/view/cursor.js");
-importScript("js/view/playerView.js");
+importScript("js/playerControler.js");
 
 var canvas = null;
 var canvasDimension = null;
 var ctx = null;
 
-// Model vars
-var player = null;
+var playerControler = null;
 
 // View vars
 var cursorView = null;
-var playerView = null;
 
 // Event vars
 var cursorX = 0;
@@ -23,6 +20,7 @@ var upPush = false;
 var downPush = false;
 
 window.onload = function () {
+
 	// Hide system cursor
 	document.getElementById('canvas').style.cursor = 'none';
 
@@ -31,13 +29,11 @@ window.onload = function () {
 	canvasDimension = canvas.getBoundingClientRect();
 	ctx = canvas.getContext("2d");
 
-	//// Model instances
-	player = new Player();
-	console.log(player)
-
 	//// View instances
-	playerView = new PlayerView(50);
 	cursorView = new CursorView(30);
+
+	// Init controlers
+	playerControler = new PlayerControler();
 
 	tick();
 }
@@ -68,11 +64,9 @@ document.onkeydown = function (e) {
 function tick () {
 	ctx.clearRect(0,0,1000,600);
 
-	// Model
-	player.tick();
+	playerControler.tick();
 
 	// View
-	playerView.draw();
 	cursorView.move(cursorX, cursorY);
 
 	window.requestAnimationFrame(tick);
