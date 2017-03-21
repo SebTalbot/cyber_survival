@@ -3,18 +3,12 @@
 	padding:0;
 }
 
-html {
+html, body {
+	width: 100%;
+	height: 100%;
 	background-color: #1c1c1c;
 }
 
-body {
-	width: 1000px;
-	margin: auto;
-}
-
-#canvas {
-	margin-top: 15px;
-	border-style: solid;
-	border-color: #FFF;
-	border-width: 1px;
+canvas {
+	display: block;
 }

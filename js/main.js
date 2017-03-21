@@ -21,13 +21,15 @@ var downPush = false;
 
 window.onload = function () {
 
+	window.addEventListener("resize", resizeCanvas);
+
 	// Hide system cursor
-	document.getElementById('canvas').style.cursor = 'none';
+	// document.getElementById('canvas').style.cursor = 'none';
 
 	// Declare Instances
 	canvas = document.getElementById("canvas");
-	canvasDimension = canvas.getBoundingClientRect();
 	ctx = canvas.getContext("2d");
+	resizeCanvas();
 
 	//// View instances
 	cursorView = new CursorView(30);
@@ -41,8 +43,8 @@ window.onload = function () {
 // Events
 
 document.onmousemove = function (e) {
-	cursorX = e.pageX - canvasDimension.left;
-	cursorY = e.pageY - canvasDimension.top;
+	cursorX = e.pageX;
+	cursorY = e.pageY;
 }
 
 document.onkeyup = function (e) {
@@ -62,7 +64,7 @@ document.onkeydown = function (e) {
 }
 
 function tick () {
-	ctx.clearRect(0,0,1000,600);
+	ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
 
 	playerControler.tick();
 
@@ -70,6 +72,11 @@ function tick () {
 	cursorView.move(cursorX, cursorY);
 
 	window.requestAnimationFrame(tick);
+}
+
+function resizeCanvas() {
+	ctx.canvas.width  = window.innerWidth;
+	ctx.canvas.height = window.innerHeight;
 }
 
 // Add Scripts to index.html
