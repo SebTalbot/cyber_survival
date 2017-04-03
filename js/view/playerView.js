@@ -1,13 +1,12 @@
 class PlayerView {
-	constructor (scale) {
-		this.scale = scale;
+	constructor () {
 	}
 
 	draw (posX, posY) {
 		ctx.fillStyle = "#33CCFF";
-		ctx.fillRect(posX - (this.scale/2),
-					 posY - (this.scale/2),
-					 this.scale,
-					 this.scale);
+		ctx.fillRect(posX - (scale/2),
+					 posY - (scale/2),
+					 scale,
+					 scale);
 	}
 }

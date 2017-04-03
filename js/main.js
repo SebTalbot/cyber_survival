@@ -1,13 +1,17 @@
 importScript("js/view/cursor.js");
 importScript("js/playerControler.js");
+importScript("js/mapControler.js");
 
 var canvas = null;
 var canvasDimension = null;
 var ctx = null;
 
+// Controlers
 var playerControler = null;
+var mapControler = null;
 
 // View vars
+var scale = 50
 var cursorView = null;
 
 // Event vars
@@ -36,6 +40,7 @@ window.onload = function () {
 
 	// Init controlers
 	playerControler = new PlayerControler();
+	mapControler = new MapControler();
 
 	tick();
 }
@@ -65,6 +70,7 @@ document.onkeydown = function (e) {
 
 function tick () {
 	ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
+	mapControler.tick();
 
 	playerControler.tick();
 
