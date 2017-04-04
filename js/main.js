@@ -1,4 +1,5 @@
 importScript("js/view/cursor.js");
+importScript("js/model/camera.js");
 importScript("js/playerControler.js");
 importScript("js/mapControler.js");
 
@@ -6,12 +7,15 @@ var canvas = null;
 var canvasDimension = null;
 var ctx = null;
 
+// Camera
+var camera = null;
+
 // Controlers
 var playerControler = null;
 var mapControler = null;
 
 // View vars
-var scale = 50
+var scale = 40;
 var cursorView = null;
 
 // Event vars
@@ -28,7 +32,7 @@ window.onload = function () {
 	window.addEventListener("resize", resizeCanvas);
 
 	// Hide system cursor
-	// document.getElementById('canvas').style.cursor = 'none';
+	document.getElementById('canvas').style.cursor = 'none';
 
 	// Declare Instances
 	canvas = document.getElementById("canvas");
@@ -36,6 +40,7 @@ window.onload = function () {
 	resizeCanvas();
 
 	//// View instances
+	camera = new Camera();
 	cursorView = new CursorView(30);
 
 	// Init controlers
@@ -43,14 +48,14 @@ window.onload = function () {
 	mapControler = new MapControler();
 
 	tick();
-}
+};
 
 // Events
 
 document.onmousemove = function (e) {
 	cursorX = e.pageX;
 	cursorY = e.pageY;
-}
+};
 
 document.onkeyup = function (e) {
 	if (e.which == 65) leftPush = false;
@@ -58,7 +63,7 @@ document.onkeyup = function (e) {
 
 	if (e.which == 87) upPush = false;
 	else if (e.which == 83) downPush = false;
-}
+};
 
 document.onkeydown = function (e) {
 	if (e.which == 65) leftPush = true;
@@ -66,7 +71,7 @@ document.onkeydown = function (e) {
 
 	if (e.which == 87) upPush = true;
 	else if (e.which == 83) downPush = true;
-}
+};
 
 function tick () {
 	ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
@@ -76,7 +81,9 @@ function tick () {
 
 	// View
 	cursorView.move(cursorX, cursorY);
-
+	camera.changePosition(playerControler.getPlayer().getX(),
+						  playerControler.getPlayer().getY(),
+						  cursorX, cursorY, ctx);
 	window.requestAnimationFrame(tick);
 }
 

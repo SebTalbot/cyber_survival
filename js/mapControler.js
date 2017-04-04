@@ -10,4 +10,7 @@ class MapControler {
 	tick () {
 		this.mapView.draw(this.map.nbTilesX, this.map.nbTilesY, this.map.arrayTiles);
 	}
+
+	getMapSizeX () {return this.map.nbTilesX};
+	getMapSizeY () {return this.map.nbTilesY};
 }

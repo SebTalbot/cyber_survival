@@ -7,17 +7,17 @@ class MapView {
 			for (var j = 0; j < nbTilesX; j++) {
 				if (arrayTiles[i][j] == 0){
 					ctx.fillStyle = "#338833";
-					ctx.fillRect(j*scale,
-								 i*scale,
-								 scale,
-								 scale);
+					ctx.fillRect(j*scale - camera.getX(),
+								 i*scale - camera.getY(),
+								 scale+1,
+								 scale+1);
 				}
 				else if (arrayTiles[i][j] == 1){
 					ctx.fillStyle = "#000000";
-					ctx.fillRect(j*scale,
-								 i*scale,
-								 scale,
-								 scale);
+					ctx.fillRect(j*scale - camera.getX(),
+								 i*scale - camera.getY(),
+								 scale+1,
+								 scale+1);
 				}
 			}
 		}

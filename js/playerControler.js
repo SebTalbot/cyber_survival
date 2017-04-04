@@ -11,4 +11,6 @@ class PlayerControler {
 		this.player.tick();
 		this.playerView.draw(this.player.getX(), this.player.getY());
 	}
+
+	getPlayer(){ return this.player; }
 }
