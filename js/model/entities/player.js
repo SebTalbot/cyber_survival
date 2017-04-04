@@ -1,7 +1,7 @@
 class Player {
 	constructor () {
-		this.posX = 500;
-		this.posY = 500;
+		this.posX = 0;
+		this.posY = 0;
 		this.speed = 5;
 	}
 
