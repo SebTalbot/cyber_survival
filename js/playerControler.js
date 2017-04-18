@@ -3,7 +3,7 @@ importScript("js/view/playerView.js");
 
 class PlayerControler {
 	constructor () {
-		this.player = new Player();
+		this.player = new Player(300,300,5,100,10,5);
 		this.playerView = new PlayerView();
 	}
 

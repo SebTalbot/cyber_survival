@@ -1,7 +1,12 @@
+// Import Controlers
 importScript("js/view/cursor.js");
 importScript("js/model/camera.js");
 importScript("js/playerControler.js");
 importScript("js/mapControler.js");
+// Import "Abstract" Classes
+importScript("js/model/entities/entity.js");
+importScript("js/model/entities/dynamicEntity.js");
+importScript("js/model/entities/livingEntity.js");
 
 var canvas = null;
 var canvasDimension = null;

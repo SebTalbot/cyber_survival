@@ -1,30 +1,28 @@
-class Player {
-	constructor () {
-		this.posX = 300;
-		this.posY = 300;
-		this.speed = 5;
+class Player extends LivingEntity{
+	constructor (x,y,speed,maxHealth,damage,attackRate) {
+		super(x,y,speed,maxHealth,damage,attackRate);
 	}
 
 	move() {
 		if(leftPush) {
-			this.posX -= this.speed;
+			this.moveLeft();
 		}
 		if(rightPush) {
-			this.posX += this.speed;
+			this.moveRight();
 		}
 		if(upPush) {
-			this.posY -= this.speed;
+			this.moveUp();
 		}
 		if(downPush) {
-			this.posY += this.speed;
+			this.moveDown();
 		}
 	}
 
 	tick(){
+		this.checkHealth();
 		this.move();
-	}
+		console.log(this.getX())
 
-	// Get
-	getX () { return this.posX };
-	getY () { return this.posY };
+		return this.alive;
+	}
 }
