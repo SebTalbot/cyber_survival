@@ -3,6 +3,19 @@ class Player extends LivingEntity{
 		super(x,y,speed,maxHealth,damage,attackRate);
 	}
 
+	tick(){
+		this.tickTime++;
+		this.checkHealth();
+		this.move();
+		if(mouseClick){
+			if(this.canAttack()){
+				arrayProjectiles.push(this.basicAttack());
+			}
+		}
+
+		return this.alive;
+	}
+
 	move() {
 		if(leftPush) {
 			this.moveLeft();
@@ -18,11 +31,9 @@ class Player extends LivingEntity{
 		}
 	}
 
-	tick(){
-		this.checkHealth();
-		this.move();
-		console.log(this.getX())
-
-		return this.alive;
+	basicAttack() {
+		var basicAttack = new Projectile(this.posX, this.posY, 8, ingameCursorX,
+										 ingameCursorY, 4);
+		return basicAttack;
 	}
 }

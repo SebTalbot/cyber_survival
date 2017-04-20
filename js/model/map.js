@@ -1,7 +1,7 @@
 class Map {
 	constructor(id) {
-		this.nbTilesX = 25
-		this.nbTilesY = 15
+		this.nbTilesX = 25;
+		this.nbTilesY = 15;
 		this.arrayTiles = [
 			[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 			[1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1],
@@ -18,6 +18,11 @@ class Map {
 			[1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 			[1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1],
 			[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]
-		]
+		];
 	}
+
+	// GET ---------------------------------------------------------------------
+	getNbTilesX(){return this.nbTilesX;}
+	getNbTilesY(){return this.nbTilesY;}
+	getArrayTiles(){return this.arrayTiles;}
 }

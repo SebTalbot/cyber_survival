@@ -1,12 +1,10 @@
 class Entity {
-
 	constructor (x,y) {
 		this.posX = x;
 		this.posY = y;
 		this.alive = true;
+		this.tickTime = 0;
 	}
-
-	tick(){}
 
 	// getter
 	getX(){ return this.posX; }

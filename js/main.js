@@ -1,31 +1,35 @@
-// Import Controlers
-importScript("js/view/cursor.js");
-importScript("js/model/camera.js");
-importScript("js/playerControler.js");
-importScript("js/mapControler.js");
+// Import View
+importScript("js/view.js");
 // Import "Abstract" Classes
 importScript("js/model/entities/entity.js");
 importScript("js/model/entities/dynamicEntity.js");
 importScript("js/model/entities/livingEntity.js");
+// Import Models
+importScript("js/model/map.js");
+importScript("js/model/entities/player.js");
+importScript("js/model/entities/projectile.js");
 
+// Canvas vars
 var canvas = null;
 var canvasDimension = null;
 var ctx = null;
 
-// Camera
-var camera = null;
-
-// Controlers
-var playerControler = null;
-var mapControler = null;
+// Model vars
+var map = null;
+var player = null;
+var arrayProjectiles = [];
 
 // View vars
-var scale = 40;
+var view = null;
 var cursorView = null;
 
 // Event vars
 var cursorX = 0;
 var cursorY = 0;
+var ingameCursorX = 0;
+var ingameCursorY = 0;
+
+var mouseClick = false;
 
 var leftPush = false;
 var rightPush = false;
@@ -39,30 +43,40 @@ window.onload = function () {
 	// Hide system cursor
 	document.getElementById('canvas').style.cursor = 'none';
 
-	// Declare Instances
+	// Canvas Instances
 	canvas = document.getElementById("canvas");
 	ctx = canvas.getContext("2d");
 	resizeCanvas();
 
-	//// View instances
-	camera = new Camera();
-	cursorView = new CursorView(30);
+	// Model instances
+	map = new Map(1);
+	player = new Player(300,300,5,100,10,10);
 
-	// Init controlers
-	playerControler = new PlayerControler();
-	mapControler = new MapControler();
+	//// View instances
+	view = new View(40);
 
 	tick();
 };
 
-// Events
-
-document.onmousemove = function (e) {
+// Events ----------------------------------------------------------------------
+document.onmousemove = function(e) {
 	cursorX = e.pageX;
 	cursorY = e.pageY;
+	if(view !== null){
+		ingameCursorX = cursorX + view.getDrawX();
+		ingameCursorY = cursorY + view.getDrawY();
+	}
 };
 
-document.onkeyup = function (e) {
+document.onmousedown = function() {
+	mouseClick = true;
+};
+
+document.onmouseup = function() {
+	mouseClick = false;
+};
+
+document.onkeyup = function(e) {
 	if (e.which == 65) leftPush = false;
 	else if (e.which == 68) rightPush = false;
 
@@ -70,7 +84,7 @@ document.onkeyup = function (e) {
 	else if (e.which == 83) downPush = false;
 };
 
-document.onkeydown = function (e) {
+document.onkeydown = function(e) {
 	if (e.which == 65) leftPush = true;
 	else if (e.which == 68) rightPush = true;
 
@@ -78,30 +92,47 @@ document.onkeydown = function (e) {
 	else if (e.which == 83) downPush = true;
 };
 
-function tick () {
+// MAIN ------------------------------------------------------------------------
+function tick() {
 	ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
-	mapControler.tick();
-
-	playerControler.tick();
+	// Model
+	player.tick();
 
 	// View
-	cursorView.move(cursorX, cursorY);
-	camera.changePosition(playerControler.getPlayer().getX(),
-						  playerControler.getPlayer().getY(),
-						  cursorX, cursorY, ctx);
+	view.changeDrawPosition(player.getX(),
+							player.getY(),
+							cursorX, cursorY, ctx);
+
+
+	view.drawMap(map.getNbTilesX(),map.getNbTilesY(),map.getArrayTiles());
+
+	for(var i=0;i<arrayProjectiles.length;i++){
+		if(arrayProjectiles[i].tick()){
+			view.drawProjectile(arrayProjectiles[i].getX(),
+								arrayProjectiles[i].getY());
+		}
+		else{
+			arrayProjectiles.splice(i,1);
+			i--;
+		}
+	}
+	view.drawPlayer(player.getX(),player.getY());
+	view.drawCursor(cursorX,cursorY);
+
 	window.requestAnimationFrame(tick);
 }
+// Global functions ------------------------------------------------------------
 
+// Resize Canvas on window event
 function resizeCanvas() {
 	ctx.canvas.width  = window.innerWidth;
 	ctx.canvas.height = window.innerHeight;
 }
 
 // Add Scripts to index.html
-function importScript ( url ) {
-	var head = document.getElementsByTagName('head')[0];
+function importScript(url) {
     var script = document.createElement('script');
     script.type = 'text/javascript';
     script.src = url;
-	head.appendChild(script);
+	document.head.appendChild(script);
 }
