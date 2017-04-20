@@ -51,10 +51,10 @@ class View {
 	// Projectile --------------------------------------------------------------
 	drawProjectile(posX, posY){
 		ctx.fillStyle = "#ff0000";
-		ctx.fillRect(posX - this.dpX,
-					 posY - this.dpY,
-					 this.scale/10,
-					 this.scale/10);
+		ctx.fillRect(posX - this.dpX - (this.scale/8),
+					 posY - this.dpY - (this.scale/8),
+					 this.scale/4,
+					 this.scale/4);
 	}
 
 	// Cursor ------------------------------------------------------------------

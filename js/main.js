@@ -50,7 +50,7 @@ window.onload = function () {
 
 	// Model instances
 	map = new Map(1);
-	player = new Player(300,300,5,100,10,10);
+	player = new Player(300,300,3,100,10,60);
 
 	//// View instances
 	view = new View(40);
@@ -62,10 +62,6 @@ window.onload = function () {
 document.onmousemove = function(e) {
 	cursorX = e.pageX;
 	cursorY = e.pageY;
-	if(view !== null){
-		ingameCursorX = cursorX + view.getDrawX();
-		ingameCursorY = cursorY + view.getDrawY();
-	}
 };
 
 document.onmousedown = function() {
@@ -99,6 +95,8 @@ function tick() {
 	player.tick();
 
 	// View
+	ingameCursorX = cursorX + view.getDrawX();
+	ingameCursorY = cursorY + view.getDrawY();
 	view.changeDrawPosition(player.getX(),
 							player.getY(),
 							cursorX, cursorY, ctx);
