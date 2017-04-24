@@ -8,6 +8,7 @@ importScript("js/model/entities/livingEntity.js");
 importScript("js/model/map.js");
 importScript("js/model/entities/player.js");
 importScript("js/model/entities/projectile.js");
+importScript("js/model/entities/wall.js");
 
 // Canvas vars
 var canvas = null;
@@ -18,6 +19,7 @@ var ctx = null;
 var map = null;
 var player = null;
 var arrayProjectiles = [];
+var arrayWalls = [];
 
 // View vars
 var view = null;
@@ -50,10 +52,19 @@ window.onload = function () {
 
 	// Model instances
 	map = new Map(1);
-	player = new Player(300,300,3,100,10,60);
+	for(var i=0;i<map.nbTilesY;i++) {
+		for(var j=0;j<map.nbTilesX;j++) {
+			if(map.arrayTiles[i][j] == 1){
+				arrayWalls.push(new Wall(j*map.tileScale, i*map.tileScale, map.tileScale));
+			}
+		}
+	}
+
+	player = new Player(200,1000,5,100,10,60);
+
 
 	//// View instances
-	view = new View(40);
+	view = new View(50);
 
 	tick();
 };
@@ -102,7 +113,7 @@ function tick() {
 							cursorX, cursorY, ctx);
 
 
-	view.drawMap(map.getNbTilesX(),map.getNbTilesY(),map.getArrayTiles());
+	view.drawMap(map.getNbTilesX(),map.getNbTilesY(),map.getArrayTiles(), map.tileScale);
 
 	for(var i=0;i<arrayProjectiles.length;i++){
 		if(arrayProjectiles[i].tick()){

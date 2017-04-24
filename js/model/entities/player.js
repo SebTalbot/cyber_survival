@@ -1,6 +1,7 @@
 class Player extends LivingEntity{
 	constructor (x,y,speed,maxHealth,damage,attackRate) {
 		super(x,y,speed,maxHealth,damage,attackRate);
+		this.size = 50;
 	}
 
 	tick(){
@@ -17,23 +18,55 @@ class Player extends LivingEntity{
 	}
 
 	move() {
+		var newX = this.posX;
+		var newY = this.posY;
+
 		if(leftPush) {
-			this.moveLeft();
+			newX-=this.speed;
 		}
 		if(rightPush) {
-			this.moveRight();
+			newX+=this.speed;
 		}
 		if(upPush) {
-			this.moveUp();
+			newY-=this.speed;
 		}
 		if(downPush) {
-			this.moveDown();
+			newY+=this.speed;
+		}
+
+		// Wall collison X
+		var wallX = false;
+		for(var i=0;i<arrayWalls.length;i++) {
+			if(this.isInRange(arrayWalls[i].getX(),
+							  arrayWalls[i].getY(),
+							  arrayWalls[i].getSize(),
+							  newX,this.posY)){
+				wallX = true;
+			}
+		}
+
+		// Wall collison Y
+		var wallY = false;
+		for(var i=0;i<arrayWalls.length;i++) {
+			if(this.isInRange(arrayWalls[i].getX(),
+							  arrayWalls[i].getY(),
+							  arrayWalls[i].getSize(),
+							  this.posX,newY)){
+				wallY = true;
+			}
+		}
+
+		if(!wallX){
+			this.posX = newX;
+		}
+		if(!wallY){
+			this.posY = newY;
 		}
 	}
 
 	basicAttack() {
-		var basicAttack = new Projectile(this.posX, this.posY, 8, ingameCursorX,
-										 ingameCursorY, 3);
+		var basicAttack = new Projectile(this.posX, this.posY, 25, ingameCursorX,
+										 ingameCursorY, 2);
 		return basicAttack;
 	}
 }

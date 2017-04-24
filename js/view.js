@@ -18,22 +18,22 @@ class View {
 	}
 
 	// Map ---------------------------------------------------------------------
-	drawMap(nbTilesX, nbTilesY, arrayTiles) {
+	drawMap(nbTilesX, nbTilesY, arrayTiles, tileScale) {
 		for(var i = 0; i < nbTilesY; i++) {
 			for(var j = 0; j < nbTilesX; j++) {
 				if (arrayTiles[i][j] == 0) {
 					ctx.fillStyle = "#338833";
-					ctx.fillRect(j*this.scale - this.dpX,
-								 i*this.scale - this.dpY,
-								 this.scale,
-								 this.scale);
+					ctx.fillRect(j*tileScale - this.dpX,
+								 i*tileScale - this.dpY,
+								 tileScale,
+								 tileScale);
 				}
 				else if (arrayTiles[i][j] == 1) {
 					ctx.fillStyle = "#000000";
-					ctx.fillRect(j*this.scale - this.dpX,
-								 i*this.scale - this.dpY,
-								 this.scale,
-								 this.scale);
+					ctx.fillRect(j*tileScale - this.dpX,
+								 i*tileScale - this.dpY,
+								 tileScale,
+								 tileScale);
 				}
 			}
 		}
