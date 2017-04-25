@@ -1,7 +1,7 @@
 class Player extends LivingEntity{
 	constructor (x,y,speed,maxHealth,damage,attackRate) {
 		super(x,y,speed,maxHealth,damage,attackRate);
-		this.size = 50;
+		this.size = 40;
 	}
 
 	tick(){

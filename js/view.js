@@ -35,17 +35,33 @@ class View {
 								 tileScale,
 								 tileScale);
 				}
+				else if (arrayTiles[i][j] == 2) {
+					ctx.fillStyle = "#202099";
+					ctx.fillRect(j*tileScale - this.dpX,
+								 i*tileScale - this.dpY,
+								 tileScale,
+								 tileScale);
+				}
 			}
 		}
 	}
 
 	// Player ------------------------------------------------------------------
-	drawPlayer(posX, posY) {
+	drawPlayer(posX, posY, playerScale) {
 		ctx.fillStyle = "#33CCFF";
-		ctx.fillRect(posX - this.dpX -(this.scale/2),
-					 posY - this.dpY -(this.scale/2),
-					 this.scale,
-					 this.scale);
+		ctx.fillRect(posX - this.dpX -(playerScale/2),
+					 posY - this.dpY -(playerScale/2),
+					 playerScale,
+					 playerScale);
+	}
+
+	// Enemy -------------------------------------------------------------------
+	drawEnemy(posX, posY, playerScale) {
+		ctx.fillStyle = "#660000";
+		ctx.fillRect(posX - this.dpX -(playerScale/2),
+					 posY - this.dpY -(playerScale/2),
+					 playerScale,
+					 playerScale);
 	}
 
 	// Projectile --------------------------------------------------------------
