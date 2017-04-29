@@ -22,6 +22,13 @@ class Map {
 		this.tileScale = 100;
 	}
 
+	getPositionInArray(x,y){
+		var result = [];
+		result[0] = (x-(x%this.tileScale))/this.tileScale;
+		result[1] = (y-(y%this.tileScale))/this.tileScale;
+		return result;
+	}
+
 	// GET ---------------------------------------------------------------------
 	getNbTilesX(){return this.nbTilesX;}
 	getNbTilesY(){return this.nbTilesY;}

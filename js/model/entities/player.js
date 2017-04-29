@@ -34,32 +34,10 @@ class Player extends LivingEntity{
 			newY+=this.speed;
 		}
 
-		// Wall collison X
-		var wallX = false;
-		for(var i=0;i<arrayWalls.length;i++) {
-			if(this.isInRange(arrayWalls[i].getX(),
-							  arrayWalls[i].getY(),
-							  arrayWalls[i].getSize(),
-							  newX,this.posY)){
-				wallX = true;
-			}
-		}
-
-		// Wall collison Y
-		var wallY = false;
-		for(var i=0;i<arrayWalls.length;i++) {
-			if(this.isInRange(arrayWalls[i].getX(),
-							  arrayWalls[i].getY(),
-							  arrayWalls[i].getSize(),
-							  this.posX,newY)){
-				wallY = true;
-			}
-		}
-
-		if(!wallX){
+		if(!this.hasCollideX(newX)){
 			this.posX = newX;
 		}
-		if(!wallY){
+		if(!this.hasCollideY(newY)){
 			this.posY = newY;
 		}
 	}

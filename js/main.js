@@ -1,9 +1,9 @@
 // Import View
 importScript("js/view.js");
-// Import "Abstract" Classes
-importScript("js/model/entities/entity.js");
-importScript("js/model/entities/dynamicEntity.js");
-importScript("js/model/entities/livingEntity.js");
+// // Import "Abstract" Classes
+// importScript("js/model/entities/entity.js");
+// importScript("js/model/entities/dynamicEntity.js");
+// importScript("js/model/entities/livingEntity.js");
 // Import Models
 importScript("js/model/map.js");
 importScript("js/model/entities/player.js");
@@ -132,7 +132,7 @@ function tick() {
 	//// Spawn
 	spawnTick++;
 	if(spawnTick == 5*60){
-		arrayEnemies.push(new Enemy(150,600,1,1,1,1))
+		arrayEnemies.push(new Enemy(150,600,2,1,1,1))
 	}
 
 	//// Tick
