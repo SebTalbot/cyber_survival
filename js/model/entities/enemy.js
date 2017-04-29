@@ -1,24 +1,52 @@
 class Enemy extends LivingEntity{
 	constructor (x,y,speed,maxHealth,damage,attackRate) {
 		super(x,y,speed,maxHealth,damage,attackRate);
+		this.excitedSpeed = this.speed + 2;
+		this.calmSpeed = this.speed;
 		this.size = 40;
+		this.range = 300;
 		this.path = [];
 	}
 
 	tick(){
 		this.checkHealth();
 
-		if(this.path.length != 0){
-			this.posX = this.path[0].x
-			this.posY = this.path[0].y
-			this.path.splice(0,1);
+		if(this.detectPlayer()){
+			this.speed = this.excitedSpeed;
+			this.destinationX = player.posX;
+			this.destinationY = player.posY;
+			this.path = this.astar();
+			if(typeof this.path[0] != 'undefined'){
+				this.posX = this.path[0].x
+				this.posY = this.path[0].y
+				this.path.splice(0,1);
+			}
 		}
 		else{
-			this.choseDestination();
-			this.path = this.astar();
+			this.speed = this.calmSpeed;
+			if(this.path.length != 0){
+				this.posX = this.path[0].x
+				this.posY = this.path[0].y
+				this.path.splice(0,1);
+			}
+			else{
+				this.choseDestination();
+				this.path = this.astar();
+			}
 		}
 
+
 		return this.alive;
+	}
+
+	detectPlayer(){
+		var ret = false;
+
+		if(Math.abs(this.posX - player.posX) + Math.abs(this.posY - player.posY) <= this.range){
+			ret = true;
+		}
+
+		return ret;
 	}
 
 	astar() {
@@ -28,7 +56,6 @@ class Enemy extends LivingEntity{
 		var close = [];
 
 		while(open.length != 0){
-			console.log(open.length)
 			// Chose lowest cost node
 			var nodeIndex = 0;
 			for(var i=0;i<open.length;i++){
