@@ -20,4 +20,33 @@ class DynamicEntity extends Entity {
 		return result;
 	}
 
+	hasCollideX(testX){
+		var wallX = false;
+
+		for(var i=0;i<arrayWalls.length;i++) {
+			if(this.isInRange(arrayWalls[i].getX(),
+							  arrayWalls[i].getY(),
+							  arrayWalls[i].getSize(),
+							  testX,this.posY)){
+				wallX = true;
+			}
+		}
+
+		return wallX;
+	}
+
+	hasCollideY(testY){
+		var wallY = false;
+
+		for(var i=0;i<arrayWalls.length;i++) {
+			if(this.isInRange(arrayWalls[i].getX(),
+							  arrayWalls[i].getY(),
+							  arrayWalls[i].getSize(),
+							  this.posX,testY)){
+				wallY = true;
+			}
+		}
+
+		return wallY;
+	}
 }
