@@ -138,7 +138,9 @@ function tick() {
 	//// Tick
 	for(var i=0;i<arrayEnemies.length;i++){
 		if(arrayEnemies[i].tick()){
-			view.drawEnemy(arrayEnemies[i].getX(),arrayEnemies[i].getY(),arrayEnemies[i].getSize());
+			view.drawEnemy(arrayEnemies[i].getX(),
+						   arrayEnemies[i].getY(),
+						   arrayEnemies[i].getSize());
 		}
 		else{
 			arrayEnemies.splice(i,1);
