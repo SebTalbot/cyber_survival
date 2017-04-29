@@ -1,177 +1,99 @@
 class Enemy extends LivingEntity{
 	constructor (x,y,speed,maxHealth,damage,attackRate) {
 		super(x,y,speed,maxHealth,damage,attackRate);
-		this.size = 50;
+		this.size = 40;
+		this.path = [];
 	}
 
 	tick(){
 		this.checkHealth();
 
-		// Movement
-		var newX = this.posX;
-		var newY = this.posY;
+		if(this.path.length != 0){
+			this.posX = this.path[0].x
+			this.posY = this.path[0].y
+			this.path.splice(0,1);
+		}
+		else{
+			this.choseDestination();
+			this.path = this.astar();
+		}
 
 		return this.alive;
 	}
 
-	// chooseDestination() {
-	// 	// find tile
-	// 	var tileX = (this.posX-(this.posX%map.tileScale))/map.tileScale;
-	// 	var tileY = (this.posY-(this.posY%map.tileScale))/map.tileScale;
-    //
-	// 	// looking arround
-	// 	//					north,n-e,east,s-e,south,s-w,west,n-w
-	// 	var posibilities = [true,true,true,true,true,true,true,true];
-    //
-	// 	if(map.getArrayTiles()[tileY-1][tileX]==1)   {posibilities[0] = false;}
-	// 	if(map.getArrayTiles()[tileY-1][tileX+1]==1) {posibilities[1] = false;}
-	// 	if(map.getArrayTiles()[tileY][tileX+1]==1)   {posibilities[2] = false;}
-	// 	if(map.getArrayTiles()[tileY+1][tileX+1]==1) {posibilities[3] = false;}
-	// 	if(map.getArrayTiles()[tileY+1][tileX]==1)   {posibilities[4] = false;}
-	// 	if(map.getArrayTiles()[tileY+1][tileX-1]==1) {posibilities[5] = false;}
-	// 	if(map.getArrayTiles()[tileY][tileX-1]==1)   {posibilities[6] = false;}
-	// 	if(map.getArrayTiles()[tileY-1][tileX-1]==1) {posibilities[7] = false;}
-    //
-	// 	// Priorities
-	// 	var yPlus = [false,false,false,true,true,true,false,false];
-	// 	var yMinus = [true,true,false,false,false,false,false,true];
-	// 	var yNeutral = [false,false,true,false,false,false,false,true,false];
-    //
-	// 	var xPlus = [false,true,true,true,false,false,false,false];
-	// 	var xMinus = [false,false,false,false,false,true,true,true];
-	// 	var xNeutral = [true,false,false,false,true,false,false,false];
-    //
-	// 	var priorities = [];
-	// 	var choices = [];
-    //
-	// 	// if X is neutral
-	// 	if(Math.abs(this.posX-this.destinationFinalX) <= this.speed){
-	// 		if(this.posY < this.destinationFinalY){
-	// 			priorities = yMinus;
-	// 		}
-	// 		else {
-	// 			priorities = yPlus;
-	// 		}
-    //
-	// 		// Check if there is posibilities
-	// 		for(var i = 0; i < 8; i++){
-	// 			if(priorities[i] && posibilities[i])
-	// 				choices.push(i);
-	// 		}
-    //
-	// 		// if there is no posibilities check with a neutral state
-	// 		if(choices.length == 0){
-	// 			priorities = yNeutral;
-	// 			for(var i = 0; i < 8; i++){
-	// 				if(priorities[i] && posibilities[i])
-	// 					choices.push(i);
-	// 			}
-	// 		}
-	// 	}
-	// 	// if Y is neutral
-	// 	else if(Math.abs(this.posY-this.destinationFinalY) <= this.speed){
-	// 		console.log("y")
-	// 		if(this.posX < this.destinationFinalX){
-	// 			priorities = xMinus;
-	// 		}
-	// 		else {
-	// 			priorities = xPlus;
-	// 		}
-    //
-	// 		// Check if there is posibilities
-	// 		for(var i = 0; i < 8; i++){
-	// 			if(priorities[i] && posibilities[i])
-	// 				choices.push(i);
-	// 		}
-    //
-	// 		// if there is no posibilities check with a neutral state
-	// 		if(choices.length == 0){
-	// 			priorities = xNeutral;
-	// 			for(var i = 0; i < 8; i++){
-	// 				if(priorities[i] && posibilities[i])
-	// 					choices.push(i);
-	// 			}
-	// 		}
-	// 	}
-	// 	// if none are neutral
-	// 	else{
-	// 		if(this.posX < this.destinationFinalX){
-	// 			if(this.posY < this.destinationFinalY){
-	// 				for(var i = 0; i < 8; i++){
-	// 					priorities[i] = xMinus[i] || yMinus[i];
-	// 				}
-	// 			}
-	// 			else {
-	// 				for(var i = 0; i < 8; i++){
-	// 					priorities[i] = xMinus[i] || yPlus[i];
-	// 				}
-	// 			}
-	// 		}
-	// 		else{
-	// 			if(this.posY < this.destinationFinalY){
-	// 				for(var i = 0; i < 8; i++){
-	// 					priorities[i] = xPlus[i] || yMinus[i];
-	// 				}
-	// 			}
-	// 			else {
-	// 				for(var i = 0; i < 8; i++){
-	// 					priorities[i] = xPlus[i] || yPlus[i];
-	// 				}
-	// 			}
-	// 		}
-    //
-	// 		// Check if there is posibilities
-	// 		for(var i = 0; i < 8; i++){
-	// 			if(priorities[i] && posibilities[i])
-	// 				choices.push(i);
-	// 		}
-    //
-	// 		// if there is no posibilities check with a neutral state
-	// 		if(choices.length == 0){
-	// 			for(var i = 0; i < 8; i++){
-	// 				priorities[i] = xNeutral[i] || xNeutral[i];
-	// 			}
-    //
-	// 			for(var i = 0; i < 8; i++){
-	// 				if(priorities[i] && posibilities[i])
-	// 					choices.push(i);
-	// 			}
-	// 		}
-	// 	}
-    //
-	// 	// Final choice
-	// 	var random = Math.floor(Math.random() * (choices.length )) ;
-	// 	var choice = choices[random];
-    //
-	// 	if(choice == 0){
-	// 		this.destinationTempY -= map.tileScale/2;
-	// 	}
-	// 	else if(choice == 1){
-	// 		this.destinationTempX += map.tileScale/2;
-	// 		this.destinationTempY -= map.tileScale/2;
-	// 	}
-	// 	else if(choice == 2){
-	// 		this.destinationTempX += map.tileScale/2;
-	// 	}
-	// 	else if(choice == 3){
-	// 		this.destinationTempX += map.tileScale/2;
-	// 		this.destinationTempY += map.tileScale/2;
-	// 	}
-	// 	else if(choice == 4){
-	// 		this.destinationTempY += map.tileScale/2;
-	// 	}
-	// 	else if(choice == 5){
-	// 		this.destinationTempX -= map.tileScale/2;
-	// 		this.destinationTempY += map.tileScale/2;
-	// 	}
-	// 	else if(choice == 6){
-	// 		this.destinationTempX -= map.tileScale/2;
-	// 	}
-	// 	else if(choice == 7){
-	// 		this.destinationTempX -= map.tileScale/2;
-	// 		this.destinationTempY -= map.tileScale/2;
-	// 	}
-    //
-	// 	console.log(choice)
-	// }
+	astar() {
+		// Init
+		var startNode = new AStarNode(this.posX, this.posY, this.destinationX, this.destinationY);
+		var open = [startNode];
+		var close = [];
+
+		while(open.length != 0){
+			console.log(open.length)
+			// Chose lowest cost node
+			var nodeIndex = 0;
+			for(var i=0;i<open.length;i++){
+				if(open[i].costTotal < open[nodeIndex].costTotal){nodeIndex=i;}
+			}
+			var node = open[nodeIndex];
+
+			if(Math.abs(node.x - node.dX) <= this.speed &&
+			   Math.abs(node.y - node.dY) <= this.speed ){
+				var currentNode = node;
+				var ret = [];
+				while(currentNode.parent != null){
+					ret.unshift(currentNode);
+					currentNode = currentNode.parent;
+				}
+				open = [];
+			}
+			else {
+				open.splice(nodeIndex,1);
+				close.push(node);
+
+				var neighbors = node.neighbors(this.speed);
+				for(var i=0;i<neighbors.length;i++){
+					if(!this.hasCollideBoth(neighbors[i].x,neighbors[i].y)){
+						var validNeighbor = true;
+						for(var j=0;j<close.length;j++){
+							if(close[j].x == neighbors[i].x &&
+								close[j].y == neighbors[i].y) {
+								validNeighbor = false;
+							}
+						}
+
+						if(validNeighbor){
+							neighbors[i].costFromStart = node.costFromStart+1;
+							neighbors[i].parent = node;
+							var costFromStartBest = true;
+
+							for(var j=0;j<open.length;j++){
+								if((open[j].x == neighbors[i].x &&
+								   open[j].y == neighbors[i].y) ||
+								   open[j].costFromStart > neighbors[i].costFromStart){
+									costFromStartBest = false;
+								}
+							}
+
+							if(costFromStartBest){
+								open.push(neighbors[i]);
+							}
+						}
+					}
+				}
+			}
+		}
+		return ret;
+	}
+
+	choseDestination() {
+		var dX = Math.floor(Math.random() * (map.getNbTilesX()*map.tileScale));
+		var dY = Math.floor(Math.random() * (map.getNbTilesY()*map.tileScale));
+
+		while(this.hasCollideBoth(dX,dY)){
+			dX = Math.floor(Math.random() * (map.getNbTilesX()*map.tileScale));
+			dY = Math.floor(Math.random() * (map.getNbTilesY()*map.tileScale));
+		}
+		this.destinationX = dX;
+		this.destinationY = dY;
+	}
 }

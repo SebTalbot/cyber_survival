@@ -49,4 +49,19 @@ class DynamicEntity extends Entity {
 
 		return wallY;
 	}
+
+	hasCollideBoth(testX,testY){
+		var wall = false;
+
+		for(var i=0;i<arrayWalls.length;i++) {
+			if(this.isInRange(arrayWalls[i].getX(),
+							  arrayWalls[i].getY(),
+							  arrayWalls[i].getSize(),
+							  testX,testY)){
+				wall = true;
+			}
+		}
+
+		return wall;
+	}
 }

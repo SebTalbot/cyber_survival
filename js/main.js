@@ -133,6 +133,9 @@ function tick() {
 	spawnTick++;
 	if(spawnTick == 5*60){
 		arrayEnemies.push(new Enemy(150,600,2,1,1,1))
+		arrayEnemies.push(new Enemy(150,600,2,1,1,1))
+		arrayEnemies.push(new Enemy(150,600,2,1,1,1))
+		arrayEnemies.push(new Enemy(150,600,2,1,1,1))
 	}
 
 	//// Tick
