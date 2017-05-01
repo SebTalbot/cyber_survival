@@ -6,6 +6,7 @@ class Enemy extends LivingEntity{
 		this.size = 40;
 		this.range = 300;
 		this.path = [];
+		this.choseDestination();
 	}
 
 	tick(){
@@ -30,7 +31,10 @@ class Enemy extends LivingEntity{
 				this.path.splice(0,1);
 			}
 			else{
-				this.choseDestination();
+				if(Math.abs(this.posX - this.destinationX) <= this.speed &&
+				   Math.abs(this.posY - this.destinationY) <= this.speed ){
+					this.choseDestination();
+				}
 				this.path = this.astar();
 			}
 		}
@@ -55,7 +59,6 @@ class Enemy extends LivingEntity{
 	}
 
 	astar() {
-		console.log("X")
 		// Init
 		var startNode = new AStarNode(this.posX, this.posY, this.destinationX, this.destinationY);
 		var open = [startNode];
@@ -69,8 +72,8 @@ class Enemy extends LivingEntity{
 			}
 			var node = open[nodeIndex];
 
-			if(Math.abs(node.x - node.dX) <= this.speed &&
-			   Math.abs(node.y - node.dY) <= this.speed ){
+			if((Math.abs(node.x - node.dX) <= this.speed &&
+				Math.abs(node.y - node.dY) <= this.speed ) || open.length > 50){
 				var currentNode = node;
 				var ret = [];
 				while(currentNode.parent != null){
