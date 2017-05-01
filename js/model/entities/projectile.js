@@ -1,5 +1,5 @@
 class Projectile extends DynamicEntity {
-	constructor(x, y, speed, directionX, directionY, lifespan){
+	constructor(x, y, speed, damage, directionX, directionY, lifespan){
 		super(x, y, speed);
 		this.size = 4;
 		var deltaX = directionX - this.posX;
@@ -8,6 +8,9 @@ class Projectile extends DynamicEntity {
 		var veloScale = this.speed / mag;
 		this.veloX = deltaX * veloScale;
 		this.veloY = deltaY * veloScale;
+
+		this.damage = damage;
+		this.friendly = true;
 		this.lifespan = lifespan*60;
 	}
 
@@ -21,6 +24,22 @@ class Projectile extends DynamicEntity {
 							  arrayWalls[i].getSize(),
 							  this.posX,this.posY)){
 				wall = true;
+			}
+		}
+
+
+		// Taget collision
+		if(this.friendly){
+			for(var i=0;i<arrayEnemies.length;i++){
+				var enemy = arrayEnemies[i];
+
+				if(this.isInRange(enemy.getX()-enemy.getSize()/2,
+								  enemy.getY()-enemy.getSize()/2,
+								  enemy.getSize(),
+								  this.posX,this.posY)){
+					arrayEnemies[i].takeDamage(this.damage);
+					this.alive = false;
+				}
 			}
 		}
 

@@ -39,6 +39,11 @@ class Enemy extends LivingEntity{
 		return this.alive;
 	}
 
+	takeDamage(damage){
+		this.health -= damage;
+		console.log(this.health)
+	}
+
 	detectPlayer(){
 		var ret = false;
 
@@ -50,6 +55,7 @@ class Enemy extends LivingEntity{
 	}
 
 	astar() {
+		console.log("X")
 		// Init
 		var startNode = new AStarNode(this.posX, this.posY, this.destinationX, this.destinationY);
 		var open = [startNode];

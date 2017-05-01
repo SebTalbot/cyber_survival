@@ -43,7 +43,7 @@ class Player extends LivingEntity{
 	}
 
 	basicAttack() {
-		var basicAttack = new Projectile(this.posX, this.posY, 25, ingameCursorX,
+		var basicAttack = new Projectile(this.posX, this.posY, 25, 25, ingameCursorX,
 										 ingameCursorY, 2);
 		return basicAttack;
 	}
