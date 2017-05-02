@@ -13,10 +13,14 @@ class Enemy extends LivingEntity{
 		this.checkHealth();
 
 		if(this.detectPlayer()){
+			this.atick++;
 			this.speed = this.excitedSpeed;
 			this.destinationX = player.posX;
 			this.destinationY = player.posY;
-			this.path = this.astar();
+			if(this.atick >= 60){
+				this.path = this.astar();
+				this.atick = 0;
+			}
 			if(typeof this.path[0] != 'undefined'){
 				this.posX = this.path[0].x
 				this.posY = this.path[0].y
@@ -25,6 +29,7 @@ class Enemy extends LivingEntity{
 		}
 		else{
 			this.speed = this.calmSpeed;
+			this.atick = 60;
 			if(this.path.length != 0){
 				this.posX = this.path[0].x
 				this.posY = this.path[0].y
@@ -73,7 +78,7 @@ class Enemy extends LivingEntity{
 			var node = open[nodeIndex];
 
 			if((Math.abs(node.x - node.dX) <= this.speed &&
-				Math.abs(node.y - node.dY) <= this.speed ) || open.length > 50){
+				Math.abs(node.y - node.dY) <= this.speed ) || open.length > 500){
 				var currentNode = node;
 				var ret = [];
 				while(currentNode.parent != null){
