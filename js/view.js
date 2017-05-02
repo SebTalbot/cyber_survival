@@ -55,6 +55,28 @@ class View {
 					 playerScale);
 	}
 
+	drawHealthPlayer(health, maxHealth) {
+		ctx.fillStyle = "#FFF";
+		ctx.fillRect(10, 10,
+					this.getPercentX(35),
+					this.getPercentY(5));
+
+		ctx.fillStyle = "#600";
+		ctx.fillRect(12, 12,
+					this.getPercentX(35)-4,
+					this.getPercentY(5)-4);
+
+		var healthPercent = health/maxHealth*100;
+		var healthWidth = healthPercent*(this.getPercentX(35)-4)/100;
+		console.log(healthWidth)
+
+		ctx.fillStyle = "#060";
+		ctx.fillRect(12, 12,
+					healthWidth,
+					this.getPercentY(5)-4);
+
+	}
+
 	// Enemy -------------------------------------------------------------------
 	drawEnemy(posX, posY, playerScale) {
 		ctx.fillStyle = "#660000";
@@ -101,6 +123,13 @@ class View {
 					 posY - 1,
 					 3,
 					 3);
+	}
+
+	getPercentX(value){
+		return (value*window.innerWidth)/100;
+	}
+	getPercentY(value){
+		return (value*window.innerHeight)/100;
 	}
 
 	getDrawX(){return this.dpX;}
