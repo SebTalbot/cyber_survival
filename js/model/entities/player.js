@@ -2,6 +2,7 @@ class Player extends LivingEntity{
 	constructor (x,y,speed,maxHealth,damage,attackRate) {
 		super(x,y,speed,maxHealth,damage,attackRate);
 		this.size = 40;
+		this.ability = 1;
 	}
 
 	tick(){
@@ -10,7 +11,12 @@ class Player extends LivingEntity{
 		this.move();
 		if(mouseClick){
 			if(this.canAttack()){
-				arrayProjectiles.push(this.basicAttack());
+				if(this.ability == 1){
+					arrayProjectiles.push(this.basicAttack());
+				}
+				else if(this.ability == 2){
+					arrayProjectiles.push(this.attackTwo());
+				}
 			}
 		}
 
@@ -46,5 +52,11 @@ class Player extends LivingEntity{
 		var basicAttack = new Projectile(this.posX, this.posY, 25, 25, ingameCursorX,
 										 ingameCursorY, 2);
 		return basicAttack;
+	}
+
+	attackTwo() {
+		var attackTwo = new Projectile(this.posX, this.posY, 10, 100, ingameCursorX,
+										 ingameCursorY, 4);
+		return attackTwo;
 	}
 }

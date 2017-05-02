@@ -102,6 +102,21 @@ document.onkeydown = function(e) {
 
 	if (e.which == 87) upPush = true;
 	else if (e.which == 83) downPush = true;
+
+	console.log(e.which)
+	// Q = 81 E = 69
+	if (e.which == 81) {
+		player.ability--;
+		if(player.ability == 0){
+			player.ability = 4;
+		}
+	}
+	if (e.which == 69) {
+		player.ability++
+		if(player.ability == 5){
+			player.ability = 1;
+		}
+	}
 };
 
 // MAIN ------------------------------------------------------------------------
@@ -171,7 +186,8 @@ function tick() {
 	for(var i=0;i<arrayProjectiles.length;i++){
 		if(arrayProjectiles[i].tick()){
 			view.drawProjectile(arrayProjectiles[i].getX(),
-								arrayProjectiles[i].getY());
+				arrayProjectiles[i].getY(),
+				arrayProjectiles[i].size);
 		}
 		else{
 			arrayProjectiles.splice(i,1);
@@ -183,7 +199,7 @@ function tick() {
 	//vie joueur
 	view.drawHealthPlayer(player.health, player.maxHealth);
 	view.drawExpPlayer(500,1000);
-
+	view.drawAbilitiesPlayer(player.ability);
 
 
 	view.drawCursor(cursorX,cursorY);

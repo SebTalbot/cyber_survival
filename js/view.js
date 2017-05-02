@@ -101,6 +101,46 @@ class View {
 
 	}
 
+	drawAbilitiesPlayer(ability){
+		var color1 = "#FFF";
+		var color2 = "#FFF";
+		var color3 = "#FFF";
+		var color4 = "#FFF";
+
+		if(ability == 1){color1 = "#eeaa00"};
+		if(ability == 2){color2 = "#eeaa00"};
+		if(ability == 3){color3 = "#eeaa00"};
+		if(ability == 4){color4 = "#eeaa00"};
+
+		ctx.fillStyle = color1;
+		ctx.fillRect(window.innerWidth/2-this.getPercentX(4)*2-this.getPercentX(1.5),
+			window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)
+			-this.getPercentX(0.5)-this.getPercentX(4),
+					this.getPercentX(4),
+					this.getPercentX(4));
+
+		ctx.fillStyle = color2;
+		ctx.fillRect(window.innerWidth/2-this.getPercentX(4)-this.getPercentX(0.5),
+			window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)
+			-this.getPercentX(0.5)-this.getPercentX(4),
+					this.getPercentX(4),
+					this.getPercentX(4));
+
+		ctx.fillStyle = color3;
+		ctx.fillRect(window.innerWidth/2+this.getPercentX(0.5),
+			window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)
+			-this.getPercentX(0.5)-this.getPercentX(4),
+					this.getPercentX(4),
+					this.getPercentX(4));
+
+		ctx.fillStyle = color4;
+		ctx.fillRect(window.innerWidth/2+this.getPercentX(4)+this.getPercentX(1.5),
+			window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)
+			-this.getPercentX(0.5)-this.getPercentX(4),
+					this.getPercentX(4),
+					this.getPercentX(4));
+	}
+
 	// Enemy -------------------------------------------------------------------
 	drawEnemy(posX, posY, playerScale) {
 		ctx.fillStyle = "#660000";
@@ -111,12 +151,12 @@ class View {
 	}
 
 	// Projectile --------------------------------------------------------------
-	drawProjectile(posX, posY){
+	drawProjectile(posX, posY, scale){
 		ctx.fillStyle = "#ff0000";
-		ctx.fillRect(posX - this.dpX - (this.scale/8),
-					 posY - this.dpY - (this.scale/8),
-					 this.scale/4,
-					 this.scale/4);
+		ctx.fillRect(posX - this.dpX - (scale/8),
+					 posY - this.dpY - (scale/8),
+					 scale/4,
+					 scale/4);
 	}
 
 	// Cursor ------------------------------------------------------------------
