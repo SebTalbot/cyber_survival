@@ -68,12 +68,36 @@ class View {
 
 		var healthPercent = health/maxHealth*100;
 		var healthWidth = healthPercent*(this.getPercentX(35)-4)/100;
-		console.log(healthWidth)
 
 		ctx.fillStyle = "#060";
 		ctx.fillRect(12, 12,
 					healthWidth,
 					this.getPercentY(5)-4);
+
+	}
+
+	drawExpPlayer(exp, nextLevel){
+		ctx.fillStyle = "#FFF";
+		ctx.fillRect(this.getPercentX(0.5),
+					window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2),
+					this.getPercentX(99),
+					this.getPercentY(2));
+
+		ctx.fillStyle = "#333";
+		ctx.fillRect(this.getPercentX(0.5)+2,
+					window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)+2,
+					this.getPercentX(99)-4,
+					this.getPercentY(2)-4);
+
+		var expPercent = exp/nextLevel*100;
+		var expWidth = expPercent*(this.getPercentX(99)-4)/100;
+		console.log(expPercent)
+
+		ctx.fillStyle = "#cc0";
+		ctx.fillRect(this.getPercentX(0.5)+2,
+					window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)+2,
+					expWidth,
+					this.getPercentY(2)-4);
 
 	}
 

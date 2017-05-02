@@ -1,15 +1,15 @@
 // Import View
-importScript("js/view.js");
+// importScript("js/view.js");
 // // Import "Abstract" Classes
 // importScript("js/model/entities/entity.js");
 // importScript("js/model/entities/dynamicEntity.js");
 // importScript("js/model/entities/livingEntity.js");
 // Import Models
-importScript("js/model/map.js");
-importScript("js/model/entities/player.js");
-importScript("js/model/entities/enemy.js");
-importScript("js/model/entities/projectile.js");
-importScript("js/model/entities/wall.js");
+// importScript("js/model/map.js");
+// importScript("js/model/entities/player.js");
+// importScript("js/model/entities/enemy.js");
+// importScript("js/model/entities/projectile.js");
+// importScript("js/model/entities/wall.js");
 
 // Canvas vars
 var canvas = null;
@@ -182,6 +182,7 @@ function tick() {
 	//UI -----
 	//vie joueur
 	view.drawHealthPlayer(player.health, player.maxHealth);
+	view.drawExpPlayer(500,1000);
 
 
 
