@@ -12,9 +12,11 @@ class Player extends LivingEntity{
 		if(mouseClick){
 			if(this.canAttack()){
 				if(this.ability == 1){
+					this.attackRate = 20;
 					arrayProjectiles.push(this.basicAttack());
 				}
 				else if(this.ability == 2){
+					this.attackRate = 120;
 					arrayProjectiles.push(this.attackTwo());
 				}
 			}
@@ -55,8 +57,9 @@ class Player extends LivingEntity{
 	}
 
 	attackTwo() {
-		var attackTwo = new Projectile(this.posX, this.posY, 10, 100, ingameCursorX,
+		var attackTwo = new Projectile(this.posX, this.posY, 5, 100, ingameCursorX,
 										 ingameCursorY, 4);
+		attackTwo.size*=3;
 		return attackTwo;
 	}
 }

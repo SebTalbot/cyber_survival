@@ -97,26 +97,32 @@ document.onkeyup = function(e) {
 };
 
 document.onkeydown = function(e) {
+	// Mouvement WASD
 	if (e.which == 65) leftPush = true;
 	else if (e.which == 68) rightPush = true;
 
 	if (e.which == 87) upPush = true;
 	else if (e.which == 83) downPush = true;
 
-	console.log(e.which)
+	// Abilities
 	// Q = 81 E = 69
 	if (e.which == 81) {
 		player.ability--;
-		if(player.ability == 0){
+		if(player.ability === 0){
 			player.ability = 4;
 		}
 	}
 	if (e.which == 69) {
-		player.ability++
+		player.ability++;
 		if(player.ability == 5){
 			player.ability = 1;
 		}
 	}
+	// 1 2 3 4
+	if (e.which == 49) player.ability = 1;
+	if (e.which == 50) player.ability = 2;
+	if (e.which == 51) player.ability = 3;
+	if (e.which == 52) player.ability = 4;
 };
 
 // MAIN ------------------------------------------------------------------------
@@ -140,7 +146,6 @@ function tick() {
 		view.drawPlayer(player.getX(),player.getY(),player.getSize());
 	}
 	else {
-		console.log("dead");
 	}
 
 	// Enemies

@@ -22,7 +22,7 @@ class View {
 		for(var i = 0; i < nbTilesY; i++) {
 			for(var j = 0; j < nbTilesX; j++) {
 				if (arrayTiles[i][j] == 0) {
-					ctx.fillStyle = "#338833";
+					ctx.fillStyle = "#333";
 					ctx.fillRect(j*tileScale - this.dpX,
 								 i*tileScale - this.dpY,
 								 tileScale,
@@ -91,7 +91,6 @@ class View {
 
 		var expPercent = exp/nextLevel*100;
 		var expWidth = expPercent*(this.getPercentX(99)-4)/100;
-		console.log(expPercent)
 
 		ctx.fillStyle = "#cc0";
 		ctx.fillRect(this.getPercentX(0.5)+2,
@@ -107,56 +106,61 @@ class View {
 		var color3 = "#FFF";
 		var color4 = "#FFF";
 
-		if(ability == 1){color1 = "#eeaa00"};
-		if(ability == 2){color2 = "#eeaa00"};
-		if(ability == 3){color3 = "#eeaa00"};
-		if(ability == 4){color4 = "#eeaa00"};
+		if(ability == 1){color1 = "#eeaa00";}
+		if(ability == 2){color2 = "#eeaa00";}
+		if(ability == 3){color3 = "#eeaa00";}
+		if(ability == 4){color4 = "#eeaa00";}
 
 		ctx.fillStyle = color1;
 		ctx.fillRect(window.innerWidth/2-this.getPercentX(4)*2-this.getPercentX(1.5),
-			window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)
-			-this.getPercentX(0.5)-this.getPercentX(4),
+					window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
+					this.getPercentX(0.5)-this.getPercentX(4),
 					this.getPercentX(4),
 					this.getPercentX(4));
 
 		ctx.fillStyle = color2;
 		ctx.fillRect(window.innerWidth/2-this.getPercentX(4)-this.getPercentX(0.5),
-			window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)
-			-this.getPercentX(0.5)-this.getPercentX(4),
+					window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
+					this.getPercentX(0.5)-this.getPercentX(4),
 					this.getPercentX(4),
 					this.getPercentX(4));
 
 		ctx.fillStyle = color3;
 		ctx.fillRect(window.innerWidth/2+this.getPercentX(0.5),
-			window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)
-			-this.getPercentX(0.5)-this.getPercentX(4),
+					window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
+					this.getPercentX(0.5)-this.getPercentX(4),
 					this.getPercentX(4),
 					this.getPercentX(4));
 
 		ctx.fillStyle = color4;
 		ctx.fillRect(window.innerWidth/2+this.getPercentX(4)+this.getPercentX(1.5),
-			window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)
-			-this.getPercentX(0.5)-this.getPercentX(4),
+					window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
+					this.getPercentX(0.5)-this.getPercentX(4),
 					this.getPercentX(4),
 					this.getPercentX(4));
 	}
 
 	// Enemy -------------------------------------------------------------------
 	drawEnemy(posX, posY, playerScale) {
-		ctx.fillStyle = "#660000";
+		ctx.fillStyle = "#0a0";
 		ctx.fillRect(posX - this.dpX -(playerScale/2),
 					 posY - this.dpY -(playerScale/2),
 					 playerScale,
 					 playerScale);
+		ctx.fillStyle = "#000";
+		ctx.fillRect(posX - this.dpX -(playerScale/2)+2,
+					 posY - this.dpY -(playerScale/2)+2,
+					 playerScale-4,
+					 playerScale-4);
 	}
 
 	// Projectile --------------------------------------------------------------
-	drawProjectile(posX, posY, scale){
+	drawProjectile(posX, posY, Projectilescale){
 		ctx.fillStyle = "#ff0000";
-		ctx.fillRect(posX - this.dpX - (scale/8),
-					 posY - this.dpY - (scale/8),
-					 scale/4,
-					 scale/4);
+		ctx.fillRect(posX - this.dpX - (Projectilescale/2),
+					 posY - this.dpY - (Projectilescale/2),
+					 Projectilescale,
+					 Projectilescale);
 	}
 
 	// Cursor ------------------------------------------------------------------

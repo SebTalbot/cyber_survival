@@ -1,7 +1,7 @@
 class Projectile extends DynamicEntity {
 	constructor(x, y, speed, damage, directionX, directionY, lifespan){
 		super(x, y, speed);
-		this.size = 30;
+		this.size = 10;
 		var deltaX = directionX - this.posX;
 		var deltaY = directionY - this.posY;
 		var mag = Math.sqrt(deltaX*deltaX+deltaY*deltaY)

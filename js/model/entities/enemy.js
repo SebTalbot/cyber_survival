@@ -17,7 +17,7 @@ class Enemy extends LivingEntity{
 			this.speed = this.excitedSpeed;
 			this.destinationX = player.posX;
 			this.destinationY = player.posY;
-			if(this.atick >= 60){
+			if(this.atick >= 30){
 				this.path = this.astar();
 				this.atick = 0;
 			}
@@ -50,7 +50,6 @@ class Enemy extends LivingEntity{
 
 	takeDamage(damage){
 		this.health -= damage;
-		console.log(this.health)
 	}
 
 	detectPlayer(){
@@ -78,7 +77,7 @@ class Enemy extends LivingEntity{
 			var node = open[nodeIndex];
 
 			if((Math.abs(node.x - node.dX) <= this.speed &&
-				Math.abs(node.y - node.dY) <= this.speed ) || open.length > 200){
+				Math.abs(node.y - node.dY) <= this.speed ) || open.length > 150){
 				var currentNode = node;
 				var ret = [];
 				while(currentNode.parent != null){
