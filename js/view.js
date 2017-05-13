@@ -76,6 +76,14 @@ class View {
 
 	}
 
+	drawLvlPlayer(level){
+		ctx.fillStyle = "#FFF";
+		ctx.textAlign="left";
+		ctx.textBaseline="top";
+		ctx.font = "25px Arial";
+		ctx.fillText("Niveau "+level,10,this.getPercentY(7));
+	}
+
 	drawExpPlayer(exp, nextLevel){
 		ctx.fillStyle = "#FFF";
 		ctx.fillRect(this.getPercentX(0.5),
@@ -152,6 +160,24 @@ class View {
 					 posY - this.dpY -(playerScale/2)+2,
 					 playerScale-4,
 					 playerScale-4);
+	}
+
+	drawSpawnSec(sec){
+		ctx.fillStyle = "#FFF";
+		ctx.textAlign="center";
+		ctx.textBaseline="top";
+		ctx.font = "15px Arial";
+		ctx.fillText(sec+" seconde(s) avant la prochaine vague",
+			this.getPercentX(50), this.getPercentY(7));
+	}
+
+	drawWaveNum(number){
+		ctx.fillStyle = "#FFF";
+		ctx.textAlign="end";
+		ctx.textBaseline="top";
+		ctx.font = "25px Arial";
+		ctx.fillText("Vague: "+number,
+			this.getPercentX(100)-10, this.getPercentY(7));
 	}
 
 	// Projectile --------------------------------------------------------------

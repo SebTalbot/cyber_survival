@@ -1,6 +1,9 @@
 class Player extends LivingEntity{
 	constructor (x,y,speed,maxHealth,damage,attackRate) {
 		super(x,y,speed,maxHealth,damage,attackRate);
+		this.level = 1;
+		this.exp = 0;
+		this.nextLevelExp = 100;
 		this.size = 40;
 		this.ability = 1;
 	}
@@ -61,5 +64,30 @@ class Player extends LivingEntity{
 										 ingameCursorY, 4);
 		attackTwo.size*=3;
 		return attackTwo;
+	}
+
+	checkLevelUp(){
+		if(this.exp >= this.nextLevelExp){
+			this.level++;
+			this.exp = 0;
+		}
+	}
+
+	// Set Get
+	getExp(){
+		return this.exp;
+	}
+
+	getNextLevelExp(){
+		return this.nextLevelExp;
+	}
+
+	addExp(value){
+		this.exp+= value;
+		this.checkLevelUp();
+	}
+
+	getLevel(){
+		return this.level;
 	}
 }

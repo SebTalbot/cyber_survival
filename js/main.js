@@ -21,7 +21,10 @@ var map = null;
 var player = null;
 var arrayProjectiles = [];
 var arrayWalls = [];
+var wave = 0;
+var waveMax = 20;
 var spawnTick = 0;
+var spawnSec = 10;
 var arrayEnemies = [];
 
 // View vars
@@ -71,6 +74,7 @@ window.onload = function () {
 	//// View instances
 	view = new View(50);
 
+	// Loop
 	tick();
 };
 
@@ -143,35 +147,32 @@ function tick() {
 
 	// Player
 	if(player.tick()) {
-		view.drawPlayer(player.getX(),player.getY(),player.getSize());
+	view.drawPlayer(player.getX(),player.getY(),player.getSize());
 	}
 	else {
 	}
 
 	// Enemies
 	//// Spawn
-	spawnTick++;
-	if(spawnTick == 5*60){
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-		arrayEnemies.push(new Enemy(150,600,1,100,1,1))
+	// if(spawnTick == 5*60){
+	// 	arrayEnemies.push(new Enemy(150,600,1,100,1,1))
+	// }
+
+	if(arrayEnemies.length == 0){
+		spawnTick++;
+		if(spawnTick >= 60){
+			spawnTick = 0;
+			spawnSec--;
+		}
+
+		if(spawnSec <= 0){
+			wave++;
+			for(var i=0; i<=waveMax;i++){
+				arrayEnemies.push(new Enemy(150,600,1,100,1,1))
+			}
+			spawnSec = 10;
+		}
+
 	}
 
 	//// Tick
@@ -182,6 +183,7 @@ function tick() {
 						   arrayEnemies[i].getSize());
 		}
 		else{
+			player.addExp(10);
 			arrayEnemies.splice(i,1);
 			i--;
 		}
@@ -201,10 +203,12 @@ function tick() {
 	}
 
 	//UI -----
-	//vie joueur
 	view.drawHealthPlayer(player.health, player.maxHealth);
-	view.drawExpPlayer(500,1000);
+	view.drawExpPlayer(player.getExp(),player.getNextLevelExp());
 	view.drawAbilitiesPlayer(player.ability);
+	view.drawLvlPlayer(player.getLevel());
+	view.drawWaveNum(wave);
+	if(arrayEnemies.length == 0){view.drawSpawnSec(spawnSec);}
 
 
 	view.drawCursor(cursorX,cursorY);
