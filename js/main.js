@@ -69,6 +69,9 @@ window.onload = function () {
 	}
 
 	player = new Player(200,1000,4,100,10,60);
+	var spawnPos = map.getRandomSpawn(player.getSize())
+	player.setX(spawnPos[0]);
+	player.setY(spawnPos[1]);
 
 
 	//// View instances
@@ -154,10 +157,6 @@ function tick() {
 
 	// Enemies
 	//// Spawn
-	// if(spawnTick == 5*60){
-	// 	arrayEnemies.push(new Enemy(150,600,1,100,1,1))
-	// }
-
 	if(arrayEnemies.length == 0){
 		spawnTick++;
 		if(spawnTick >= 60){
@@ -167,8 +166,12 @@ function tick() {
 
 		if(spawnSec <= 0){
 			wave++;
-			for(var i=0; i<=waveMax;i++){
-				arrayEnemies.push(new Enemy(150,600,1,100,1,1))
+			for(var i=0; i<waveMax;i++){
+				var newEnemy = new Enemy(0,0,1,100,1,1);
+				var spawnPos = map.getRandomSpawn(newEnemy.getSize())
+				newEnemy.setX(spawnPos[0]);
+				newEnemy.setY(spawnPos[1]);
+				arrayEnemies.push(newEnemy)
 			}
 			spawnSec = 10;
 		}
@@ -209,6 +212,7 @@ function tick() {
 	view.drawLvlPlayer(player.getLevel());
 	view.drawWaveNum(wave);
 	if(arrayEnemies.length == 0){view.drawSpawnSec(spawnSec);}
+	else{view.drawEnemyNum(arrayEnemies.length, waveMax);}
 
 
 	view.drawCursor(cursorX,cursorY);

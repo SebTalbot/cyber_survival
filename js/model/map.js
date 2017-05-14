@@ -29,6 +29,35 @@ class Map {
 		return result;
 	}
 
+	getRandomSpawn(size){
+		var posX = 0;
+		var posY = 0;
+		var spawnArray = [];
+
+		// Get spawns
+		for(var i=0;i<this.arrayTiles.length;i++){
+			for(var j=0;j<this.arrayTiles[0].length;j++){
+				if(this.arrayTiles[i][j] == 2){
+					spawnArray.push([i,j]);
+				}
+			}
+		}
+
+		// Chose random spawn
+		var rand = Math.floor((Math.random() * (spawnArray.length-1)));
+
+		// Chose random position on spawn
+		var max = (spawnArray[rand][1]+1)*this.tileScale-size;
+		var min = spawnArray[rand][1]*this.tileScale+size;
+		posX = Math.floor((Math.random() * (max - min)) + min);
+
+		max = (spawnArray[rand][0]+1)*this.tileScale-size;
+		min = spawnArray[rand][0]*this.tileScale+size;
+		posY = Math.floor((Math.random() * (max - min)) + min);
+
+		return [posX,posY];
+	}
+
 	// GET ---------------------------------------------------------------------
 	getNbTilesX(){return this.nbTilesX;}
 	getNbTilesY(){return this.nbTilesY;}

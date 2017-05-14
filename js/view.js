@@ -180,6 +180,15 @@ class View {
 			this.getPercentX(100)-10, this.getPercentY(7));
 	}
 
+	drawEnemyNum(current,max){
+		ctx.fillStyle = "#FFF";
+		ctx.textAlign="end";
+		ctx.textBaseline="top";
+		ctx.font = "25px Arial";
+		ctx.fillText(current+"/"+max+ " ennemi(s)",
+			this.getPercentX(100)-10, this.getPercentY(11));
+	}
+
 	// Projectile --------------------------------------------------------------
 	drawProjectile(posX, posY, Projectilescale){
 		ctx.fillStyle = "#ff0000";
