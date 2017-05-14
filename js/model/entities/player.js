@@ -1,6 +1,6 @@
 class Player extends LivingEntity{
-	constructor (x,y,speed,maxHealth,damage,attackRate) {
-		super(x,y,speed,maxHealth,damage,attackRate);
+	constructor (speed,maxHealth,damage,attackRate) {
+		super(speed,maxHealth,damage,attackRate);
 		this.level = 1;
 		this.exp = 0;
 		this.nextLevelExp = 100;

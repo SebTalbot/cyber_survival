@@ -1,6 +1,6 @@
 class LivingEntity extends DynamicEntity {
-	constructor (x,y,speed,maxHealth,damage,attackRate) {
-		super(x,y,speed);
+	constructor (speed,maxHealth,damage,attackRate) {
+		super(0,0,speed);
 		this.maxHealth = maxHealth;
 		this.health = maxHealth;
 		this.damage = damage;
@@ -9,14 +9,14 @@ class LivingEntity extends DynamicEntity {
 	}
 
 	canAttack(){
+		var ret = false;
+
 		if(this.tickTime >= this.attackRate){
 			this.tickTime = 0;
-			this.attackReady = true;
+			ret = true;
 		}
-		else{
-			this.attackReady = false;
-		}
-		return this.attackReady;
+
+		return ret;
 	}
 
 	checkHealth() {
@@ -25,8 +25,8 @@ class LivingEntity extends DynamicEntity {
 		}
 	}
 
-	reduceHealth(amount) {
-		this.health -= amount;
+	takeDamage(damage){
+		this.health -= damage;
 	}
 
 	gainHealth(amount) {

@@ -80,7 +80,7 @@ class View {
 		ctx.fillStyle = "#FFF";
 		ctx.textAlign="left";
 		ctx.textBaseline="top";
-		ctx.font = "25px Arial";
+		ctx.font = this.getPercentY(3)+"px Arial";
 		ctx.fillText("Niveau "+level,10,this.getPercentY(7));
 	}
 
@@ -166,7 +166,7 @@ class View {
 		ctx.fillStyle = "#FFF";
 		ctx.textAlign="center";
 		ctx.textBaseline="top";
-		ctx.font = "15px Arial";
+		ctx.font = this.getPercentY(2)+"px Arial";
 		ctx.fillText(sec+" seconde(s) avant la prochaine vague",
 			this.getPercentX(50), this.getPercentY(7));
 	}
@@ -175,7 +175,7 @@ class View {
 		ctx.fillStyle = "#FFF";
 		ctx.textAlign="end";
 		ctx.textBaseline="top";
-		ctx.font = "25px Arial";
+		ctx.font = this.getPercentY(3)+"px Arial";
 		ctx.fillText("Vague: "+number,
 			this.getPercentX(100)-10, this.getPercentY(7));
 	}
@@ -184,7 +184,7 @@ class View {
 		ctx.fillStyle = "#FFF";
 		ctx.textAlign="end";
 		ctx.textBaseline="top";
-		ctx.font = "25px Arial";
+		ctx.font = this.getPercentY(3)+"px Arial";
 		ctx.fillText(current+"/"+max+ " ennemi(s)",
 			this.getPercentX(100)-10, this.getPercentY(11));
 	}
@@ -237,5 +237,15 @@ class View {
 
 	getDrawX(){return this.dpX;}
 	getDrawY(){return this.dpY;}
+
+	// Game Over ---------------------------------------------------------------
+	drawGameOver(){
+		ctx.fillStyle = "#FFF";
+		ctx.textAlign="center";
+		ctx.textBaseline="middle";
+		ctx.font = this.getPercentY(15)+"px Arial";
+		ctx.fillText("Vous etes mort",
+			this.getPercentX(50), this.getPercentY(50));
+	}
 
 }

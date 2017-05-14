@@ -1,61 +1,31 @@
 class Enemy extends LivingEntity{
-	constructor (x,y,speed,maxHealth,damage,attackRate) {
-		super(x,y,speed,maxHealth,damage,attackRate);
-		this.excitedSpeed = this.speed + 2;
-		this.calmSpeed = this.speed;
+	constructor (speed,maxHealth,damage,attackRate,visionRange,attackRange) {
+		super(speed,maxHealth,damage,attackRate);
+		this.visionRange = visionRange;
+		this.attackRange = attackRange;
 		this.size = 40;
-		this.range = 300;
 		this.path = [];
 		this.choseDestination();
 	}
 
-	tick(){
-		this.checkHealth();
-
-		if(this.detectPlayer()){
-			this.atick++;
-			this.speed = this.excitedSpeed;
-			this.destinationX = player.posX;
-			this.destinationY = player.posY;
-			if(this.atick >= 30){
-				this.path = this.astar();
-				this.atick = 0;
-			}
-			if(typeof this.path[0] != 'undefined'){
-				this.posX = this.path[0].x
-				this.posY = this.path[0].y
-				this.path.splice(0,1);
-			}
-		}
-		else{
-			this.speed = this.calmSpeed;
-			this.atick = 60;
-			if(this.path.length != 0){
-				this.posX = this.path[0].x
-				this.posY = this.path[0].y
-				this.path.splice(0,1);
-			}
-			else{
-				if(Math.abs(this.posX - this.destinationX) <= this.speed &&
-				   Math.abs(this.posY - this.destinationY) <= this.speed ){
-					this.choseDestination();
-				}
-				this.path = this.astar();
-			}
-		}
-
-
-		return this.alive;
-	}
-
-	takeDamage(damage){
-		this.health -= damage;
-	}
-
-	detectPlayer(){
+	detectPlayer() {
 		var ret = false;
+		var dX = Math.abs(player.getX() - this.posX);
+		var dY = Math.abs(player.getY() - this.posY);
 
-		if(Math.abs(this.posX - player.posX) + Math.abs(this.posY - player.posY) <= this.range){
+		if(Math.sqrt(dX) + Math.sqrt(dY) <= Math.sqrt(this.visionRange)){
+			ret = true;
+		}
+
+		return ret;
+	}
+
+	isInAttackRange() {
+		var ret = false;
+		var dX = Math.abs(player.getX() - this.posX);
+		var dY = Math.abs(player.getY() - this.posY);
+
+		if(Math.sqrt(dX) + Math.sqrt(dY) <= Math.sqrt(this.attackRange)){
 			ret = true;
 		}
 

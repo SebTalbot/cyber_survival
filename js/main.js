@@ -1,16 +1,3 @@
-// Import View
-// importScript("js/view.js");
-// // Import "Abstract" Classes
-// importScript("js/model/entities/entity.js");
-// importScript("js/model/entities/dynamicEntity.js");
-// importScript("js/model/entities/livingEntity.js");
-// Import Models
-// importScript("js/model/map.js");
-// importScript("js/model/entities/player.js");
-// importScript("js/model/entities/enemy.js");
-// importScript("js/model/entities/projectile.js");
-// importScript("js/model/entities/wall.js");
-
 // Canvas vars
 var canvas = null;
 var canvasDimension = null;
@@ -46,6 +33,7 @@ var downPush = false;
 
 window.onload = function () {
 
+	// Dynamic resize
 	window.addEventListener("resize", resizeCanvas);
 
 	// Hide system cursor
@@ -55,6 +43,9 @@ window.onload = function () {
 	canvas = document.getElementById("canvas");
 	ctx = canvas.getContext("2d");
 	resizeCanvas();
+	canvas.oncontextmenu = function (e) {
+		e.preventDefault();
+	};
 
 	// Model instances
 	map = new Map(1);
@@ -68,7 +59,7 @@ window.onload = function () {
 		}
 	}
 
-	player = new Player(200,1000,4,100,10,60);
+	player = new Player(4,100,10,60);
 	var spawnPos = map.getRandomSpawn(player.getSize())
 	player.setX(spawnPos[0]);
 	player.setY(spawnPos[1]);
@@ -153,6 +144,8 @@ function tick() {
 	view.drawPlayer(player.getX(),player.getY(),player.getSize());
 	}
 	else {
+		view.drawGameOver();
+		return false;
 	}
 
 	// Enemies
@@ -167,7 +160,7 @@ function tick() {
 		if(spawnSec <= 0){
 			wave++;
 			for(var i=0; i<waveMax;i++){
-				var newEnemy = new Enemy(0,0,1,100,1,1);
+				var newEnemy = new Charger(1,100,1,60,400,200);
 				var spawnPos = map.getRandomSpawn(newEnemy.getSize())
 				newEnemy.setX(spawnPos[0]);
 				newEnemy.setY(spawnPos[1]);
@@ -225,12 +218,4 @@ function tick() {
 function resizeCanvas() {
 	ctx.canvas.width  = window.innerWidth;
 	ctx.canvas.height = window.innerHeight;
-}
-
-// Add Scripts to index.html
-function importScript(url) {
-    var script = document.createElement('script');
-    script.type = 'text/javascript';
-    script.src = url;
-	document.head.appendChild(script);
 }
