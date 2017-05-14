@@ -6,20 +6,26 @@ class Player extends LivingEntity{
 		this.nextLevelExp = 100;
 		this.size = 40;
 		this.ability = 1;
+		this.cooldown1 = 0;
+		this.cooldown2 = 0;
 	}
 
 	tick(){
-		this.tickTime++;
+		this.cooldown1-=this.attackRate;
+		console.log(this.cooldown1)
+		this.cooldown2-=this.attackRate;
 		this.checkHealth();
 		this.move();
 		if(mouseClick){
-			if(this.canAttack()){
-				if(this.ability == 1){
-					this.attackRate = 20;
+			if(this.ability == 1){
+				if(this.cooldown1 <= 0){
+					this.cooldown1 = 30;
 					arrayProjectiles.push(this.basicAttack());
 				}
-				else if(this.ability == 2){
-					this.attackRate = 120;
+			}
+			else if(this.ability == 2){
+				if(this.cooldown2 <= 0){
+					this.cooldown2 = 120;
 					arrayProjectiles.push(this.attackTwo());
 				}
 			}
@@ -72,7 +78,10 @@ class Player extends LivingEntity{
 			this.exp = 0;
 			this.speed+=0.2;
 			this.damage+=5;
+			this.attackRate+=0.5;
 			this.maxHealth+=10;
+			this.gainHealth(10);
+			this.nextLevelExp*=1.2;
 		}
 	}
 

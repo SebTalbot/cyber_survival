@@ -59,7 +59,7 @@ window.onload = function () {
 		}
 	}
 
-	player = new Player(4,100,10,60);
+	player = new Player(4,100,10,1);
 	var spawnPos = map.getRandomSpawn(player.getSize())
 	player.setX(spawnPos[0]);
 	player.setY(spawnPos[1]);
