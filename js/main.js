@@ -121,6 +121,9 @@ document.onkeydown = function(e) {
 	if (e.which == 50) player.ability = 2;
 	if (e.which == 51) player.ability = 3;
 	if (e.which == 52) player.ability = 4;
+
+	// Spacebar
+	if (e.which == 32) spawnSec = 0;
 };
 
 // MAIN ------------------------------------------------------------------------
@@ -160,13 +163,17 @@ function tick() {
 		if(spawnSec <= 0){
 			wave++;
 			for(var i=0; i<waveMax;i++){
-				var newEnemy = new Charger(1,100,1,60,400,200);
+				if( i < waveMax/2){
+					var newEnemy = new Charger(1.5,100,1,1,300,60);
+				}
+				else{
+					var newEnemy = new Shooter(2,100,5,40,400,300);
+				}
 				var spawnPos = map.getRandomSpawn(newEnemy.getSize())
 				newEnemy.setX(spawnPos[0]);
 				newEnemy.setY(spawnPos[1]);
 				arrayEnemies.push(newEnemy)
 			}
-			spawnSec = 10;
 		}
 
 	}
@@ -176,11 +183,13 @@ function tick() {
 		if(arrayEnemies[i].tick()){
 			view.drawEnemy(arrayEnemies[i].getX(),
 						   arrayEnemies[i].getY(),
-						   arrayEnemies[i].getSize());
+						   arrayEnemies[i].getSize(),
+						   arrayEnemies[i].getId());
 		}
 		else{
 			player.addExp(10);
 			arrayEnemies.splice(i,1);
+			spawnSec = 10;
 			i--;
 		}
 	}

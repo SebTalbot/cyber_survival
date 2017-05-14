@@ -1,9 +1,7 @@
-class Charger extends Enemy{
+class Shooter extends Enemy{
 	constructor(speed,maxHealth,damage,attackRate,visionRange,attackRange){
 		super(speed,maxHealth,damage,attackRate,visionRange,attackRange);
-		this.id = 1;
-		this.excitedSpeed = this.speed*2+1;
-		this.calmSpeed = this.speed;
+		this.id = 2;
 		this.choseDestination();
 	}
 
@@ -13,7 +11,6 @@ class Charger extends Enemy{
 
 		if(this.detectPlayer()){
 			this.atick++;
-			this.speed = this.excitedSpeed;
 			this.destinationX = player.posX;
 			this.destinationY = player.posY;
 			// Follow the player
@@ -29,16 +26,14 @@ class Charger extends Enemy{
 			// Attack the player
 			if(this.isInAttackRange()){
 				if(this.canAttack()){
-					// var projectile = new Projectile(this.posX, this.posY,10,
-					// 	this.damage,player.posX,player.posY,false,2)
-					// arrayProjectiles.push(projectile);
-					this.health = 0;
-					player.takeDamage(10);
+					var projectile = new Projectile(this.posX, this.posY,10,
+								this.damage,player.posX,player.posY,false,2)
+
+					arrayProjectiles.push(projectile);
 				}
 			}
 		}
 		else{
-			this.speed = this.calmSpeed;
 			this.atick = 60;
 			if(this.path.length != 0){
 				this.posX = this.path[0].x

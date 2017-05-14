@@ -55,13 +55,13 @@ class Player extends LivingEntity{
 
 	basicAttack() {
 		var basicAttack = new Projectile(this.posX, this.posY, 25, 25, ingameCursorX,
-										 ingameCursorY, 2);
+										 ingameCursorY, true, 2);
 		return basicAttack;
 	}
 
 	attackTwo() {
 		var attackTwo = new Projectile(this.posX, this.posY, 5, 100, ingameCursorX,
-										 ingameCursorY, 4);
+										 ingameCursorY, true, 4);
 		attackTwo.size*=3;
 		return attackTwo;
 	}
@@ -70,6 +70,9 @@ class Player extends LivingEntity{
 		if(this.exp >= this.nextLevelExp){
 			this.level++;
 			this.exp = 0;
+			this.speed+=0.2;
+			this.damage+=5;
+			this.maxHealth+=10;
 		}
 	}
 

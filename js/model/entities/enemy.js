@@ -1,6 +1,7 @@
 class Enemy extends LivingEntity{
 	constructor (speed,maxHealth,damage,attackRate,visionRange,attackRange) {
 		super(speed,maxHealth,damage,attackRate);
+		this.id = 0;
 		this.visionRange = visionRange;
 		this.attackRange = attackRange;
 		this.size = 40;
@@ -106,4 +107,6 @@ class Enemy extends LivingEntity{
 		this.destinationX = dX;
 		this.destinationY = dY;
 	}
+
+	getId(){ return this.id;}
 }

@@ -1,5 +1,5 @@
 class Projectile extends DynamicEntity {
-	constructor(x, y, speed, damage, directionX, directionY, lifespan){
+	constructor(x, y, speed, damage, directionX, directionY, friendly, lifespan){
 		super(x, y, speed);
 		this.size = 10;
 		var deltaX = directionX - this.posX;
@@ -10,7 +10,7 @@ class Projectile extends DynamicEntity {
 		this.veloY = deltaY * veloScale;
 
 		this.damage = damage;
-		this.friendly = true;
+		this.friendly = friendly;
 		this.lifespan = lifespan*60;
 	}
 
@@ -40,6 +40,15 @@ class Projectile extends DynamicEntity {
 					arrayEnemies[i].takeDamage(this.damage);
 					this.alive = false;
 				}
+			}
+		}
+		else {
+			if(this.isInRange(player.getX()-player.getSize()/2,
+							  player.getY()-player.getSize()/2,
+							  player.getSize(),
+							  this.posX,this.posY)){
+				player.takeDamage(this.damage);
+				this.alive = false;
 			}
 		}
 

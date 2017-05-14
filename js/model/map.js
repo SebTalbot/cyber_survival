@@ -19,7 +19,7 @@ class Map {
 		];
 		this.nbTilesX = this.arrayTiles[0].length;
 		this.nbTilesY = this.arrayTiles.length;
-		this.tileScale = 100;
+		this.tileScale = 150;
 	}
 
 	getPositionInArray(x,y){

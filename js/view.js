@@ -74,6 +74,12 @@ class View {
 					healthWidth,
 					this.getPercentY(5)-4);
 
+		ctx.fillStyle = "#FFF";
+		ctx.textAlign="left";
+		ctx.textBaseline="top";
+		ctx.font = this.getPercentY(3)+"px Arial";
+		ctx.fillText(health+"/"+maxHealth, 20, 13);
+
 	}
 
 	drawLvlPlayer(level){
@@ -149,12 +155,28 @@ class View {
 	}
 
 	// Enemy -------------------------------------------------------------------
-	drawEnemy(posX, posY, playerScale) {
-		ctx.fillStyle = "#0a0";
-		ctx.fillRect(posX - this.dpX -(playerScale/2),
-					 posY - this.dpY -(playerScale/2),
-					 playerScale,
-					 playerScale);
+	drawEnemy(posX, posY, playerScale, id) {
+		if(id == 1){
+			ctx.fillStyle = "#0a0";
+			ctx.fillRect(posX - this.dpX -(playerScale/2),
+						 posY - this.dpY -(playerScale/2),
+						 playerScale,
+						 playerScale);
+		}
+		else if(id == 2){
+			ctx.fillStyle = "#00a";
+			ctx.fillRect(posX - this.dpX -(playerScale/2),
+						 posY - this.dpY -(playerScale/2),
+						 playerScale,
+						 playerScale);
+		}
+		else if(id == 3){
+			ctx.fillStyle = "#a05";
+			ctx.fillRect(posX - this.dpX -(playerScale/2),
+						 posY - this.dpY -(playerScale/2),
+						 playerScale,
+						 playerScale);
+		}
 		ctx.fillStyle = "#000";
 		ctx.fillRect(posX - this.dpX -(playerScale/2)+2,
 					 posY - this.dpY -(playerScale/2)+2,

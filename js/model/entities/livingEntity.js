@@ -31,5 +31,8 @@ class LivingEntity extends DynamicEntity {
 
 	gainHealth(amount) {
 		this.health += amount;
+		if(this.health > this.maxHealth){
+			this.health = this.maxHealth;
+		}
 	}
 }
