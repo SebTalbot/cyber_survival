@@ -4,6 +4,12 @@ class View {
 		this.scale = scale;
 		this.dpX = 0;
 		this.dpY = 0;
+		this.imgWall = new Image();
+		this.imgWall.src = "images/wall.jpg"
+		this.imgFloor = new Image();
+		this.imgFloor.src = "images/floor.jpg"
+		this.imgSpawn = new Image();
+		this.imgSpawn.src = "images/spawn.jpg"
 	}
 
 	// Change draw position A.K.A camera ------------------------------------------
@@ -22,22 +28,22 @@ class View {
 		for(var i = 0; i < nbTilesY; i++) {
 			for(var j = 0; j < nbTilesX; j++) {
 				if (arrayTiles[i][j] == 0) {
-					ctx.fillStyle = "#333";
-					ctx.fillRect(j*tileScale - this.dpX,
+					ctx.drawImage(this.imgFloor,
+								 j*tileScale - this.dpX,
 								 i*tileScale - this.dpY,
 								 tileScale,
 								 tileScale);
 				}
 				else if (arrayTiles[i][j] == 1) {
-					ctx.fillStyle = "#000000";
-					ctx.fillRect(j*tileScale - this.dpX,
+					ctx.drawImage(this.imgWall,
+								 j*tileScale - this.dpX,
 								 i*tileScale - this.dpY,
 								 tileScale,
 								 tileScale);
 				}
 				else if (arrayTiles[i][j] == 2) {
-					ctx.fillStyle = "#202099";
-					ctx.fillRect(j*tileScale - this.dpX,
+					ctx.drawImage(this.imgSpawn,
+								 j*tileScale - this.dpX,
 								 i*tileScale - this.dpY,
 								 tileScale,
 								 tileScale);
