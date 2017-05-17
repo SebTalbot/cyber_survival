@@ -201,7 +201,8 @@ function tick() {
 		if(arrayProjectiles[i].tick()){
 			view.drawProjectile(arrayProjectiles[i].getX(),
 				arrayProjectiles[i].getY(),
-				arrayProjectiles[i].size);
+				arrayProjectiles[i].size,
+				arrayProjectiles[i].isFriendly());
 		}
 		else{
 			arrayProjectiles.splice(i,1);

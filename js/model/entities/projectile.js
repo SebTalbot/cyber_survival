@@ -62,4 +62,9 @@ class Projectile extends DynamicEntity {
 
 		return this.alive;
 	}
+
+	// get
+	isFriendly(){
+		return this.friendly;
+	}
 }

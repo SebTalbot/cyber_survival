@@ -10,6 +10,10 @@ class View {
 		this.imgFloor.src = "images/floor.jpg"
 		this.imgSpawn = new Image();
 		this.imgSpawn.src = "images/spawn.jpg"
+		this.imgGoodPro = new Image();
+		this.imgGoodPro.src = "images/goodPro.png"
+		this.imgBadPro = new Image();
+		this.imgBadPro.src = "images/badPro.png"
 	}
 
 	// Change draw position A.K.A camera ------------------------------------------
@@ -178,18 +182,6 @@ class View {
 					this.getPercentX(0.5),
 					this.getPercentX(4),
 					-percent*this.getPercentX(4));
-        //
-		// ctx.fillRect(window.innerWidth/2+this.getPercentX(0.5),
-		// 			window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
-		// 			this.getPercentX(0.5)-this.getPercentX(4),
-		// 			this.getPercentX(4),
-		// 			this.getPercentX(4));
-        //
-		// ctx.fillRect(window.innerWidth/2+this.getPercentX(4)+this.getPercentX(1.5),
-		// 			window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
-		// 			this.getPercentX(0.5)-this.getPercentX(4),
-		// 			this.getPercentX(4),
-		// 			this.getPercentX(4));
 	}
 
 	// Enemy -------------------------------------------------------------------
@@ -260,12 +252,19 @@ class View {
 	}
 
 	// Projectile --------------------------------------------------------------
-	drawProjectile(posX, posY, Projectilescale){
-		ctx.fillStyle = "#ff0000";
-		ctx.fillRect(posX - this.dpX - (Projectilescale/2),
-					 posY - this.dpY - (Projectilescale/2),
-					 Projectilescale,
-					 Projectilescale);
+	drawProjectile(posX, posY, Projectilescale, friendly){
+		if(friendly){
+			var img = this.imgGoodPro;
+		}
+		else{
+			var img = this.imgBadPro;
+		}
+		var deca = Projectilescale/3;
+		ctx.drawImage(img,
+					 posX - this.dpX - (Projectilescale/2)-deca,
+					 posY - this.dpY - (Projectilescale/2)-deca,
+					 Projectilescale+(deca*2),
+					 Projectilescale+(deca*2));
 	}
 
 	// Cursor ------------------------------------------------------------------
