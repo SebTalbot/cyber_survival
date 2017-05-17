@@ -14,6 +14,8 @@ class View {
 		this.imgGoodPro.src = "images/goodPro.png"
 		this.imgBadPro = new Image();
 		this.imgBadPro.src = "images/badPro.png"
+		this.imgPlayer = new Image();
+		this.imgPlayer.src = "images/player.png"
 	}
 
 	// Change draw position A.K.A camera ------------------------------------------
@@ -58,11 +60,23 @@ class View {
 
 	// Player ------------------------------------------------------------------
 	drawPlayer(posX, posY, playerScale) {
-		ctx.fillStyle = "#33CCFF";
-		ctx.fillRect(posX - this.dpX -(playerScale/2),
-					 posY - this.dpY -(playerScale/2),
+		// ctx.fillStyle = "#33CCFF";
+		var deca = playerScale/2;
+		playerScale*=2;
+		var drawX = posX - this.dpX;
+		var drawY = posY - this.dpY;
+
+		ctx.save();
+		ctx.translate(drawX,drawY);
+		var orientation = Math.atan2(cursorY - drawY, cursorX - drawX);
+		ctx.rotate(orientation)
+		ctx.drawImage(this.imgPlayer,
+					-playerScale/2,
+					-playerScale/2,
 					 playerScale,
 					 playerScale);
+		ctx.restore();
+
 	}
 
 	drawHealthPlayer(health, maxHealth) {

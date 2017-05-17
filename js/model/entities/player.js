@@ -15,7 +15,9 @@ class Player extends LivingEntity{
 	tick(){
 		this.health = 100;
 		if(this.cooldown1 > 0){this.cooldown1-=this.attackRate;}
+		else{this.cooldown1 = 0;}
 		if(this.cooldown2 > 0){this.cooldown2-=this.attackRate;}
+		else{this.cooldown2 = 0;}
 		this.checkHealth();
 		this.move();
 		if(mouseClick){
