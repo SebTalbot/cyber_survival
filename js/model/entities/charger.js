@@ -17,7 +17,7 @@ class Charger extends Enemy{
 			this.destinationX = player.posX;
 			this.destinationY = player.posY;
 			// Follow the player
-			if(this.atick >= 10){
+			if(this.atick >= 15){
 				this.path = this.astar();
 				this.atick = 0;
 			}

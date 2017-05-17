@@ -164,7 +164,7 @@ function tick() {
 			wave++;
 			for(var i=0; i<waveMax;i++){
 				if( i < waveMax/2){
-					var newEnemy = new Charger(1.5,100,1,1,300,60);
+					var newEnemy = new Charger(1.5,100,1,1,300,40);
 				}
 				else{
 					var newEnemy = new Shooter(2,100,5,40,400,300);

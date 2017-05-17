@@ -14,9 +14,10 @@ class Enemy extends LivingEntity{
 		var dX = Math.abs(player.getX() - this.posX);
 		var dY = Math.abs(player.getY() - this.posY);
 
-		if(Math.sqrt(dX) + Math.sqrt(dY) <= Math.sqrt(this.visionRange)){
+		if((dX^2)+(dY^2) <= (this.visionRange^2)){
 			ret = true;
 		}
+		// console.log(Math.sqrt(dX) + Math.sqrt(dY) ,Math.sqrt(this.visionRange) )
 
 		return ret;
 	}
@@ -26,7 +27,7 @@ class Enemy extends LivingEntity{
 		var dX = Math.abs(player.getX() - this.posX);
 		var dY = Math.abs(player.getY() - this.posY);
 
-		if(Math.sqrt(dX) + Math.sqrt(dY) <= Math.sqrt(this.attackRange)){
+		if((dX^2)+(dY^2) <= (this.attackRange^2)){
 			ret = true;
 		}
 
