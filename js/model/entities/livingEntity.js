@@ -35,4 +35,14 @@ class LivingEntity extends DynamicEntity {
 			this.health = this.maxHealth;
 		}
 	}
+
+
+	// get
+	getHp(){
+		return this.health;
+	}
+
+	getMaxHP(){
+		return this.maxHealth;
+	}
 }

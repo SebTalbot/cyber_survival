@@ -8,24 +8,26 @@ class Player extends LivingEntity{
 		this.ability = 1;
 		this.cooldown1 = 0;
 		this.cooldown2 = 0;
+		this.cd1Max = 40;
+		this.cd2Max = 120;
 	}
 
 	tick(){
-		this.cooldown1-=this.attackRate;
-		console.log(this.cooldown1)
-		this.cooldown2-=this.attackRate;
+		this.health = 100;
+		if(this.cooldown1 > 0){this.cooldown1-=this.attackRate;}
+		if(this.cooldown2 > 0){this.cooldown2-=this.attackRate;}
 		this.checkHealth();
 		this.move();
 		if(mouseClick){
 			if(this.ability == 1){
 				if(this.cooldown1 <= 0){
-					this.cooldown1 = 30;
+					this.cooldown1 = this.cd1Max;
 					arrayProjectiles.push(this.basicAttack());
 				}
 			}
 			else if(this.ability == 2){
 				if(this.cooldown2 <= 0){
-					this.cooldown2 = 120;
+					this.cooldown2 = this.cd2Max;
 					arrayProjectiles.push(this.attackTwo());
 				}
 			}
@@ -101,5 +103,21 @@ class Player extends LivingEntity{
 
 	getLevel(){
 		return this.level;
+	}
+
+	getCD1(){
+		return this.cooldown1;
+	}
+
+	getCD1Max(){
+		return this.cd1Max;
+	}
+
+	getCD2(){
+		return this.cooldown2;
+	}
+
+	getCD2Max(){
+		return this.cd2Max;
 	}
 }

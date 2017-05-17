@@ -9,7 +9,7 @@ var player = null;
 var arrayProjectiles = [];
 var arrayWalls = [];
 var wave = 0;
-var waveMax = 20;
+var waveMax = 10;
 var spawnTick = 0;
 var spawnSec = 10;
 var arrayEnemies = [];
@@ -184,7 +184,9 @@ function tick() {
 			view.drawEnemy(arrayEnemies[i].getX(),
 						   arrayEnemies[i].getY(),
 						   arrayEnemies[i].getSize(),
-						   arrayEnemies[i].getId());
+						   arrayEnemies[i].getId(),
+						   arrayEnemies[i].getHp(),
+						   arrayEnemies[i].getMaxHP());
 		}
 		else{
 			player.addExp(10);
@@ -211,6 +213,8 @@ function tick() {
 	view.drawHealthPlayer(player.health, player.maxHealth);
 	view.drawExpPlayer(player.getExp(),player.getNextLevelExp());
 	view.drawAbilitiesPlayer(player.ability);
+	view.drawAbilitiesCoolDown(player.getCD1(), player.getCD1Max(),
+							   player.getCD2(), player.getCD2Max());
 	view.drawLvlPlayer(player.getLevel());
 	view.drawWaveNum(wave);
 	if(arrayEnemies.length == 0){view.drawSpawnSec(spawnSec);}

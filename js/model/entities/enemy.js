@@ -17,7 +17,6 @@ class Enemy extends LivingEntity{
 		if((dX^2)+(dY^2) <= (this.visionRange^2)){
 			ret = true;
 		}
-		// console.log(Math.sqrt(dX) + Math.sqrt(dY) ,Math.sqrt(this.visionRange) )
 
 		return ret;
 	}

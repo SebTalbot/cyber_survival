@@ -154,8 +154,40 @@ class View {
 					this.getPercentX(4));
 	}
 
+	drawAbilitiesCoolDown(cd1,cd1Max,cd2,cd2Max){
+		var color = "rgba(0,0,0,0.8)";
+
+
+		ctx.fillStyle = color;
+		var percent = cd1/cd1Max;
+		ctx.fillRect(window.innerWidth/2-this.getPercentX(4)*2-this.getPercentX(1.5),
+					window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
+					this.getPercentX(0.5),
+					this.getPercentX(4),
+					-percent*this.getPercentX(4));
+
+		percent = cd2/cd2Max;
+		ctx.fillRect(window.innerWidth/2-this.getPercentX(4)-this.getPercentX(0.5),
+					window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
+					this.getPercentX(0.5),
+					this.getPercentX(4),
+					-percent*this.getPercentX(4));
+        //
+		// ctx.fillRect(window.innerWidth/2+this.getPercentX(0.5),
+		// 			window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
+		// 			this.getPercentX(0.5)-this.getPercentX(4),
+		// 			this.getPercentX(4),
+		// 			this.getPercentX(4));
+        //
+		// ctx.fillRect(window.innerWidth/2+this.getPercentX(4)+this.getPercentX(1.5),
+		// 			window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
+		// 			this.getPercentX(0.5)-this.getPercentX(4),
+		// 			this.getPercentX(4),
+		// 			this.getPercentX(4));
+	}
+
 	// Enemy -------------------------------------------------------------------
-	drawEnemy(posX, posY, playerScale, id) {
+	drawEnemy(posX, posY, playerScale, id, health, maxHealth) {
 		if(id == 1){
 			ctx.fillStyle = "#0a0";
 			ctx.fillRect(posX - this.dpX -(playerScale/2),
@@ -182,6 +214,16 @@ class View {
 					 posY - this.dpY -(playerScale/2)+2,
 					 playerScale-4,
 					 playerScale-4);
+
+		// Draw life
+		if(health < maxHealth){
+			var percent = health/maxHealth;
+			ctx.fillStyle = "rgba(20,250,20,0.8)";
+			ctx.fillRect(posX - this.dpX -(playerScale/2),
+						posY - this.dpY -(playerScale/2) - (playerScale/4*2),
+						percent*playerScale,
+						playerScale/4);
+		}
 	}
 
 	drawSpawnSec(sec){
