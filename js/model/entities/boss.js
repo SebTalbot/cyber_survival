@@ -1,7 +1,7 @@
-class Shooter extends Enemy{
+class Boss extends Enemy{
 	constructor(speed,maxHealth,damage,attackRate,visionRange,attackRange){
 		super(speed,maxHealth,damage,attackRate,visionRange,attackRange);
-		this.id = 2;
+		this.id = 3;
 		this.atick = 100;
 	}
 
@@ -26,9 +26,29 @@ class Shooter extends Enemy{
 			// Attack the player
 			if(this.isInAttackRange()){
 				if(this.canAttack()){
+					// East
 					var projectile = new Projectile(this.posX, this.posY,15,
+								this.damage,this.posX+1,this.posY,false,false,5)
+					projectile.size*=3;
+					arrayProjectiles.push(projectile);
+					// West
+					projectile = new Projectile(this.posX, this.posY,15,
+								this.damage,this.posX-1,this.posY,false,false,5)
+					projectile.size*=3;
+					arrayProjectiles.push(projectile);
+					// North
+					projectile = new Projectile(this.posX, this.posY,15,
+								this.damage,this.posX,this.posY-1,false,false,5)
+					projectile.size*=3;
+					arrayProjectiles.push(projectile);
+					// south
+					projectile = new Projectile(this.posX, this.posY,15,
+								this.damage,this.posX,this.posY+1,false,false,5)
+					projectile.size*=3;
+					arrayProjectiles.push(projectile);
+					// Player
+					projectile = new Projectile(this.posX, this.posY,10,
 								this.damage,player.posX,player.posY,false,false,2)
-
 					arrayProjectiles.push(projectile);
 				}
 			}

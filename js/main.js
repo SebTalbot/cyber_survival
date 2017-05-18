@@ -188,7 +188,10 @@ function tick() {
 			wave++;
 			if(wave%5 == 0){ waveMax+=5;}
 			for(var i=0; i<waveMax;i++){
-				if( i < waveMax/2){
+				if(wave%5 == 0 && i == 0){
+					var newEnemy = new Boss(4+(0.5*wave),100*wave,2*wave,30,500,500);
+				}
+				else if( i < waveMax/2){
 					var newEnemy = new Charger(2+(0.1*wave),100+(10*wave),
 											1+(0.1*wave),1,300+(2.5*wave),40);
 				}
