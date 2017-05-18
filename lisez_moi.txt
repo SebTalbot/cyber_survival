@@ -1,0 +1,6 @@
+Pour joueur, il faut ouvrir index.html avec Chrome ou Firefox.
+Si vous utilisez un navigateur de fichiers, vous pouvez trouver l'option
+"Ouvrir avec ..." à la suite d'un clic droit. Depuis ce menu, choisisez votre
+navigateur web préféré.
+
+Le jeux n'a aucune librairie externe.
