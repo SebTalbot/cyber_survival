@@ -18,16 +18,7 @@ class Projectile extends DynamicEntity {
 	tick(){
 		this.tickTime++;
 		// Wall collison
-		var wall = false;
-		for(var i=0;i<arrayWalls.length;i++) {
-			if(this.isInRange(arrayWalls[i].getX(),
-							  arrayWalls[i].getY(),
-							  arrayWalls[i].getSize(),
-							  this.posX,this.posY)){
-				wall = true;
-			}
-		}
-
+		var wall = this.hasCollideBoth(this.posX,this.posY);
 
 		// Taget collision
 		if(this.friendly){

@@ -22,14 +22,10 @@ class DynamicEntity extends Entity {
 
 	hasCollideX(testX){
 		var wallX = false;
+		var posMap = map.getPositionInArray(testX,this.posY);
 
-		for(var i=0;i<arrayWalls.length;i++) {
-			if(this.isInRange(arrayWalls[i].getX(),
-							  arrayWalls[i].getY(),
-							  arrayWalls[i].getSize(),
-							  testX,this.posY)){
-				wallX = true;
-			}
+		if(map.arrayTiles[posMap[1]][posMap[0]] == 1){
+			wallX = true;
 		}
 
 		return wallX;
@@ -37,14 +33,10 @@ class DynamicEntity extends Entity {
 
 	hasCollideY(testY){
 		var wallY = false;
+		var posMap = map.getPositionInArray(this.posX,testY);
 
-		for(var i=0;i<arrayWalls.length;i++) {
-			if(this.isInRange(arrayWalls[i].getX(),
-							  arrayWalls[i].getY(),
-							  arrayWalls[i].getSize(),
-							  this.posX,testY)){
-				wallY = true;
-			}
+		if(map.arrayTiles[posMap[1]][posMap[0]] == 1){
+			wallY = true;
 		}
 
 		return wallY;
@@ -52,15 +44,19 @@ class DynamicEntity extends Entity {
 
 	hasCollideBoth(testX,testY){
 		var wall = false;
+		var posMap = map.getPositionInArray(testX,testY);
 
-		for(var i=0;i<arrayWalls.length;i++) {
-			if(this.isInRange(arrayWalls[i].getX(),
-							  arrayWalls[i].getY(),
-							  arrayWalls[i].getSize(),
-							  testX,testY)){
-				wall = true;
-			}
+		if(map.arrayTiles[posMap[1]][posMap[0]] == 1){
+			wall = true;
 		}
+		// for(var i=0;i<arrayWalls.length;i++) {
+		// 	if(this.isInRange(arrayWalls[i].getX(),
+		// 					  arrayWalls[i].getY(),
+		// 					  arrayWalls[i].getSize(),
+		// 					  testX,testY)){
+		// 		wall = true;
+		// 	}
+		// }
 
 		return wall;
 	}

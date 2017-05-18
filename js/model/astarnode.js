@@ -1,14 +1,11 @@
 class AStarNode {
-	constructor(x,y,destinationX,destinationY) {
+	constructor(x,y,cost,parent,dX,dY) {
 		this.x = x;
 		this.y = y;
-		this.dX = destinationX;
-		this.dY = destinationY;
-		this.costFromStart = 0;
-		this.costToGoal = Math.abs(this.x-this.dX) +
-						  Math.abs(this.y-this.dY);
-		this.costTotal = this.costFromStart + this.costToGoal;
-		this.parent = null;
+		this.cost = cost;
+		this.h = Math.abs(this.x-dX) + Math.abs(this.y-dY);
+		this.score = this.cost + this.h;
+		this.parent = parent;
 	}
 
 	neighbors(speed) {
