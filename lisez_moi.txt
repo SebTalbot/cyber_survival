@@ -3,4 +3,7 @@ Si vous utilisez un navigateur de fichiers, vous pouvez trouver l'option
 "Ouvrir avec ..." à la suite d'un clic droit. Depuis ce menu, choisisez votre
 navigateur web préféré.
 
+Lorsqu'une partie est terminé, vous devez raffaichir la page (F5) pour recommencer.
+Pour voir tous les controles, regardez le manuel de l'usager.
+
 Le jeux n'a aucune librairie externe.
