@@ -3,6 +3,7 @@ class Shooter extends Enemy{
 		super(speed,maxHealth,damage,attackRate,visionRange,attackRange);
 		this.id = 2;
 		this.choseDestination();
+		this.atick = 100;
 	}
 
 	tick(){
@@ -14,7 +15,7 @@ class Shooter extends Enemy{
 			this.destinationX = player.posX;
 			this.destinationY = player.posY;
 			// Follow the player
-			if(this.atick >= 40){
+			if(this.atick >= 15){
 				this.path = this.astar();
 				this.atick = 0;
 			}

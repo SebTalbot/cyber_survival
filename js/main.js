@@ -59,7 +59,7 @@ window.onload = function () {
 		}
 	}
 
-	player = new Player(4,100,10,1);
+	player = new Player(5,100,10,1);
 	var spawnPos = map.getRandomSpawn(player.getSize())
 	player.setX(spawnPos[0]);
 	player.setY(spawnPos[1]);
@@ -188,11 +188,11 @@ function tick() {
 			wave++;
 			for(var i=0; i<waveMax;i++){
 				if( i < waveMax/2){
-					var newEnemy = new Charger(1.5+(0.1*wave),100+(10*wave),
+					var newEnemy = new Charger(2+(0.1*wave),100+(10*wave),
 											1+(0.1*wave),1,300+(2.5*wave),40);
 				}
 				else{
-					var newEnemy = new Shooter(2+(0.15*wave),200+(25*wave),
+					var newEnemy = new Shooter(3.5+(0.15*wave),200+(25*wave),
 											4+(0.5*wave),35,400+(5*wave),300+(5*wave));
 				}
 				var spawnPos = map.getRandomSpawn(newEnemy.getSize())

@@ -49,14 +49,6 @@ class DynamicEntity extends Entity {
 		if(map.arrayTiles[posMap[1]][posMap[0]] == 1){
 			wall = true;
 		}
-		// for(var i=0;i<arrayWalls.length;i++) {
-		// 	if(this.isInRange(arrayWalls[i].getX(),
-		// 					  arrayWalls[i].getY(),
-		// 					  arrayWalls[i].getSize(),
-		// 					  testX,testY)){
-		// 		wall = true;
-		// 	}
-		// }
 
 		return wall;
 	}

@@ -5,6 +5,7 @@ class Charger extends Enemy{
 		this.excitedSpeed = this.speed*2+1;
 		this.calmSpeed = this.speed;
 		this.choseDestination();
+		this.atick = 100;
 	}
 
 	tick(){
@@ -29,9 +30,6 @@ class Charger extends Enemy{
 			// Attack the player
 			if(this.isInAttackRange()){
 				if(this.canAttack()){
-					// var projectile = new Projectile(this.posX, this.posY,10,
-					// 	this.damage,player.posX,player.posY,false,2)
-					// arrayProjectiles.push(projectile);
 					this.health = 0;
 					player.takeDamage(10);
 				}

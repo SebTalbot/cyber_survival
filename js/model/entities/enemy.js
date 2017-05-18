@@ -13,8 +13,8 @@ class Enemy extends LivingEntity{
 		var ret = false;
 		var dX = Math.abs(player.getX() - this.posX);
 		var dY = Math.abs(player.getY() - this.posY);
-
 		if((dX^2)+(dY^2) <= (this.visionRange^2)){
+
 			ret = true;
 		}
 
@@ -44,12 +44,10 @@ class Enemy extends LivingEntity{
 		var inListNode = null;
 		var node = null;
 		var isSupportDiagonal = true;
-		var isRoundDiagonalEdge = false;
-		var iter = 0;
+		var isRoundDiagonalEdge = true;
 
 		open.push(new AStarNode(this.posX, this.posY, 0, null, this.destinationX, this.destinationY));
 		while(open.length > 0){
-			iter++
 			var currentNodeInd = 0;
 			currentNode = open[currentNodeInd];
 
@@ -84,7 +82,7 @@ class Enemy extends LivingEntity{
 					}
 				}
 
-				// if the node isn't an objstacle or part of closed list
+				// condition pour accepter une node
 				cost = map.walkCost(currentNode.x + x, currentNode.y + y);
 				if (cost != -1 && diagAccepted &&
 					close[(currentNode.x + x) + "-" + (currentNode.y + y)] == null) {
@@ -107,9 +105,9 @@ class Enemy extends LivingEntity{
 						}
 					}
 
-					// check if node is target node. If so, done!
-					if (Math.abs(node.x - this.destinationX) <  this.speed &&
-						Math.abs(node.y - this.destinationY) <  this.speed) {
+					// condition pour sortir de la loop et refermer le path
+					if ((Math.abs(node.x - this.destinationX) <  this.speed &&
+						Math.abs(node.y - this.destinationY) <  this.speed) || open.length > 1000) {
 						resultNode = node;
 						break;
 					}
@@ -125,7 +123,6 @@ class Enemy extends LivingEntity{
 		if(resultNode != null) {
 			var direction;
 			path.unshift(resultNode);
-			console.log(resultNode)
 
 			while(resultNode.parent != null) {
 				resultNode = resultNode.parent;
@@ -136,77 +133,28 @@ class Enemy extends LivingEntity{
 		return path;
 	}
 
-
-	astarBackup() {
-		// Init
-		var startNode = new AStarNode(this.posX, this.posY, this.destinationX, this.destinationY);
-		var open = [startNode];
-		var close = [];
-
-		while(open.length != 0){
-			// Chose lowest cost node
-			var nodeIndex = 0;
-			for(var i=0;i<open.length;i++){
-				if(open[i].costTotal < open[nodeIndex].costTotal){nodeIndex=i;}
-			}
-			var node = open[nodeIndex];
-
-			if((Math.abs(node.x - node.dX) <= this.speed &&
-				Math.abs(node.y - node.dY) <= this.speed ) || open.length > 500){
-				var currentNode = node;
-				var ret = [];
-				while(currentNode.parent != null){
-					ret.unshift(currentNode);
-					currentNode = currentNode.parent;
-				}
-				open = [];
-			}
-			else {
-				open.splice(nodeIndex,1);
-				close.push(node);
-
-				var neighbors = node.neighbors(this.speed);
-				for(var i=0;i<neighbors.length;i++){
-					if(!this.hasCollideBoth(neighbors[i].x,neighbors[i].y)){
-						var validNeighbor = true;
-						for(var j=0;j<close.length;j++){
-							if(close[j].x == neighbors[i].x &&
-								close[j].y == neighbors[i].y) {
-								validNeighbor = false;
-							}
-						}
-
-						if(validNeighbor){
-							neighbors[i].costFromStart = node.costFromStart+1;
-							neighbors[i].parent = node;
-							var costFromStartBest = true;
-
-							for(var j=0;j<open.length;j++){
-								if((open[j].x == neighbors[i].x &&
-								   open[j].y == neighbors[i].y) ||
-								   open[j].costFromStart > neighbors[i].costFromStart){
-									costFromStartBest = false;
-								}
-							}
-
-							if(costFromStartBest){
-								open.push(neighbors[i]);
-							}
-						}
-					}
-				}
-			}
-		}
-		return ret;
-	}
-
 	choseDestination() {
-		var dX = Math.floor(Math.random() * (map.getNbTilesX()*map.tileScale));
-		var dY = Math.floor(Math.random() * (map.getNbTilesY()*map.tileScale));
+		var badDes = true;
+		var distance = 1000;
 
-		while(this.hasCollideBoth(dX,dY)){
-			dX = Math.floor(Math.random() * (map.getNbTilesX()*map.tileScale));
-			dY = Math.floor(Math.random() * (map.getNbTilesY()*map.tileScale));
+		while(badDes){
+			var badX = true;
+			while(badX){
+				var dX = Math.floor(Math.random() * (map.getNbTilesX()*map.tileScale));
+				if(Math.abs(dX-this.posX) <= distance){
+					badX = false;
+				}
+			}
+			var badY = true;
+			while(badY){
+				var dY = Math.floor(Math.random() * (map.getNbTilesY()*map.tileScale));
+				if(Math.abs(dY-this.posY) <= distance){
+					badY = false;
+				}
+			}
+			if(!this.hasCollideBoth(dX,dY)){
+				badDes = false;
+			}
 		}
 		this.destinationX = dX;
 		this.destinationY = dY;
