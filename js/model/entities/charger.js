@@ -11,7 +11,7 @@ class Charger extends Enemy{
 		this.tickTime++;
 		this.checkHealth();
 
-		if(this.detectPlayer()){
+		if(this.detectPlayer() || this.gotShot){
 			this.atick++;
 			this.speed = this.excitedSpeed;
 			this.destinationX = player.posX;
@@ -32,6 +32,9 @@ class Charger extends Enemy{
 					this.health = 0;
 					player.takeDamage(10);
 				}
+			}
+			if(this.detectPlayer()){
+				this.gotShot = false;
 			}
 		}
 		else{

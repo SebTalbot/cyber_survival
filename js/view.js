@@ -354,7 +354,7 @@ class View {
 		ctx.textAlign="center";
 		ctx.textBaseline="middle";
 		ctx.font = this.getPercentY(15)+"px Arial";
-		ctx.fillText("Vous etes mort",
+		ctx.fillText("Vous êtes mort",
 			this.getPercentX(50), this.getPercentY(50));
 	}
 

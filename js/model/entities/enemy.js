@@ -6,6 +6,7 @@ class Enemy extends LivingEntity{
 		this.attackRange = attackRange;
 		this.size = 40;
 		this.path = [];
+		this.gotShot = false;
 	}
 
 	detectPlayer() {
@@ -171,7 +172,6 @@ class Enemy extends LivingEntity{
 		var maxY = (arrayThird[rand][1]+1)*map.tileScale;
 		var dY = Math.floor(Math.random()*(maxY-minY)) + minY;
 
-		console.log(minX, maxX, dX);
 		this.destinationX = dX;
 		this.destinationY = dY;
 	}

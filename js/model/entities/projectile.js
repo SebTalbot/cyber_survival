@@ -30,6 +30,7 @@ class Projectile extends DynamicEntity {
 								  enemy.getSize(),
 								  this.posX,this.posY)){
 					arrayEnemies[i].takeDamage(this.damage);
+					arrayEnemies[i].gotShot = true;
 					if(!this.penetrate){
 						this.alive = false;
 					}

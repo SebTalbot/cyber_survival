@@ -9,7 +9,7 @@ var player = null;
 var arrayProjectiles = [];
 var arrayWalls = [];
 var wave = 0;
-var waveMax = 20;
+var waveMax = 10;
 var spawnTick = 0;
 var spawnSec = 10;
 var arrayEnemies = [];
@@ -186,6 +186,7 @@ function tick() {
 
 		if(spawnSec <= 0){
 			wave++;
+			if(wave%5 == 0){ waveMax+=5;}
 			for(var i=0; i<waveMax;i++){
 				if( i < waveMax/2){
 					var newEnemy = new Charger(2+(0.1*wave),100+(10*wave),

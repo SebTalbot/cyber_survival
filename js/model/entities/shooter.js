@@ -9,7 +9,7 @@ class Shooter extends Enemy{
 		this.tickTime++;
 		this.checkHealth();
 
-		if(this.detectPlayer()){
+		if(this.detectPlayer() || this.gotShot){
 			this.atick++;
 			this.destinationX = player.posX;
 			this.destinationY = player.posY;
@@ -31,6 +31,9 @@ class Shooter extends Enemy{
 
 					arrayProjectiles.push(projectile);
 				}
+			}
+			if(this.detectPlayer()){
+				this.gotShot = false;
 			}
 		}
 		else{
