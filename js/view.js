@@ -16,6 +16,8 @@ class View {
 		this.imgBadPro.src = "images/badPro.png"
 		this.imgPlayer = new Image();
 		this.imgPlayer.src = "images/player.png"
+		this.imgHP = new Image();
+		this.imgHP.src = "images/healthpack.png"
 	}
 
 	// Change draw position A.K.A camera ------------------------------------------
@@ -306,6 +308,15 @@ class View {
 					 posY - this.dpY - (Projectilescale/2)-deca,
 					 Projectilescale+(deca*2),
 					 Projectilescale+(deca*2));
+	}
+
+	// HealthPack --------------------------------------------------------------
+	drawHealthPack(posX, posY, hpScale){
+		ctx.drawImage(this.imgHP,
+					 posX - this.dpX - (hpScale/2),
+					 posY - this.dpY - (hpScale/2),
+					 hpScale,
+					 hpScale);
 	}
 
 	// Cursor ------------------------------------------------------------------

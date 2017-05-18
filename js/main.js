@@ -7,6 +7,7 @@ var ctx = null;
 var map = null;
 var player = null;
 var arrayProjectiles = [];
+var arrayHP = [];
 var arrayWalls = [];
 var wave = 0;
 var waveMax = 10;
@@ -209,7 +210,7 @@ function tick() {
 
 	}
 
-	//// Tick
+	//// Enemies
 	for(var i=0;i<arrayEnemies.length;i++){
 		if(arrayEnemies[i].tick()){
 			view.drawEnemy(arrayEnemies[i].getX(),
@@ -220,6 +221,11 @@ function tick() {
 						   arrayEnemies[i].getMaxHP());
 		}
 		else{
+			var rand = Math.floor((Math.random()*10) + 1);
+			if(rand <= 3){
+				arrayHP.push(new HealthPack(arrayEnemies[i].posX, arrayEnemies[i].posY));
+				console.log(arrayHP.length)
+			}
 			player.addExp(20+(5*wave));
 			arrayEnemies.splice(i,1);
 			spawnSec = 10;
@@ -237,6 +243,16 @@ function tick() {
 		}
 		else{
 			arrayProjectiles.splice(i,1);
+			i--;
+		}
+	}
+	// HealthPack
+	for(var i=0;i<arrayHP.length;i++){
+		if(arrayHP[i].tick()){
+			view.drawHealthPack(arrayHP[i].posX, arrayHP[i].posY, arrayHP[i].size);
+		}
+		else{
+			arrayHP.splice(i,1);
 			i--;
 		}
 	}
