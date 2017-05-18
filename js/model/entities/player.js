@@ -59,8 +59,7 @@ class Player extends LivingEntity{
 			}
 		}
 
-		// return this.alive;
-		return true;
+		return this.alive;
 	}
 
 	move() {
