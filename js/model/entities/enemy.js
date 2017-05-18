@@ -48,7 +48,7 @@ class Enemy extends LivingEntity{
 			var node = open[nodeIndex];
 
 			if((Math.abs(node.x - node.dX) <= this.speed &&
-				Math.abs(node.y - node.dY) <= this.speed ) || open.length > 150){
+				Math.abs(node.y - node.dY) <= this.speed ) || open.length > 200){
 				var currentNode = node;
 				var ret = [];
 				while(currentNode.parent != null){

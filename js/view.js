@@ -149,36 +149,49 @@ class View {
 		if(ability == 3){color3 = "#eeaa00";}
 		if(ability == 4){color4 = "#eeaa00";}
 
+		ctx.textAlign="left";
+		ctx.textBaseline="top";
+		ctx.font = this.getPercentY(3)+"px Arial";
+
+		var y =window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
+					this.getPercentX(0.5)-this.getPercentX(4);
+
+		ctx.fillStyle = "#FFF";
+		ctx.fillText("Q",window.innerWidth/2-this.getPercentX(4)*2-this.getPercentX(4),y+this.getPercentY(2));
+
 		ctx.fillStyle = color1;
-		ctx.fillRect(window.innerWidth/2-this.getPercentX(4)*2-this.getPercentX(1.5),
-					window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
-					this.getPercentX(0.5)-this.getPercentX(4),
+		ctx.fillRect(window.innerWidth/2-this.getPercentX(4)*2-this.getPercentX(1.5),y,
 					this.getPercentX(4),
 					this.getPercentX(4));
+		ctx.fillStyle = "#000";
+		ctx.fillText("1-M",window.innerWidth/2-this.getPercentX(4)*2-this.getPercentX(1.5),y);
 
 		ctx.fillStyle = color2;
-		ctx.fillRect(window.innerWidth/2-this.getPercentX(4)-this.getPercentX(0.5),
-					window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
-					this.getPercentX(0.5)-this.getPercentX(4),
+		ctx.fillRect(window.innerWidth/2-this.getPercentX(4)-this.getPercentX(0.5),y,
 					this.getPercentX(4),
 					this.getPercentX(4));
+		ctx.fillStyle = "#000";
+		ctx.fillText("2-S",window.innerWidth/2-this.getPercentX(4)-this.getPercentX(0.5),y);
 
 		ctx.fillStyle = color3;
-		ctx.fillRect(window.innerWidth/2+this.getPercentX(0.5),
-					window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
-					this.getPercentX(0.5)-this.getPercentX(4),
+		ctx.fillRect(window.innerWidth/2+this.getPercentX(0.5),y,
 					this.getPercentX(4),
 					this.getPercentX(4));
+		ctx.fillStyle = "#000";
+		ctx.fillText("3-N",window.innerWidth/2+this.getPercentX(0.5),y);
 
 		ctx.fillStyle = color4;
-		ctx.fillRect(window.innerWidth/2+this.getPercentX(4)+this.getPercentX(1.5),
-					window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
-					this.getPercentX(0.5)-this.getPercentX(4),
+		ctx.fillRect(window.innerWidth/2+this.getPercentX(4)+this.getPercentX(1.5),y,
 					this.getPercentX(4),
 					this.getPercentX(4));
+		ctx.fillStyle = "#000";
+		ctx.fillText("4-U",window.innerWidth/2+this.getPercentX(4)+this.getPercentX(1.5),y);
+
+		ctx.fillStyle = "#FFF";
+		ctx.fillText("E",window.innerWidth/2+this.getPercentX(4)+this.getPercentX(6),y+this.getPercentY(2));
 	}
 
-	drawAbilitiesCoolDown(cd1,cd1Max,cd2,cd2Max){
+	drawAbilitiesCoolDown(cd1,cd1Max,cd2,cd2Max,cd3,cd3Max,cd4,cd4Max){
 		var color = "rgba(0,0,0,0.8)";
 
 
@@ -192,6 +205,20 @@ class View {
 
 		percent = cd2/cd2Max;
 		ctx.fillRect(window.innerWidth/2-this.getPercentX(4)-this.getPercentX(0.5),
+					window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
+					this.getPercentX(0.5),
+					this.getPercentX(4),
+					-percent*this.getPercentX(4));
+
+		percent = cd3/cd3Max;
+		ctx.fillRect(window.innerWidth/2+this.getPercentX(0.5),
+					window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
+					this.getPercentX(0.5),
+					this.getPercentX(4),
+					-percent*this.getPercentX(4));
+
+		percent = cd4/cd4Max;
+		ctx.fillRect(window.innerWidth/2+this.getPercentX(4)+this.getPercentX(1.5),
 					window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
 					this.getPercentX(0.5),
 					this.getPercentX(4),

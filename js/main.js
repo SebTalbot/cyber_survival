@@ -73,6 +73,7 @@ window.onload = function () {
 };
 
 // Events ----------------------------------------------------------------------
+
 document.onmousemove = function(e) {
 	cursorX = e.pageX;
 	cursorY = e.pageY;
@@ -126,6 +127,29 @@ document.onkeydown = function(e) {
 	if (e.which == 32) spawnSec = 0;
 };
 
+//// Mouse wheel event
+// IE9, Chrome, Safari, Opera
+document.addEventListener("mousewheel", MouseWheelHandler, false);
+// Firefox
+document.addEventListener("DOMMouseScroll", MouseWheelHandler, false);
+function MouseWheelHandler(e) {
+	if (e.wheelDeltaY > 0) {
+		player.ability--;
+		if(player.ability === 0){
+			player.ability = 4;
+		}
+	}
+	else {
+		player.ability++;
+		if(player.ability == 5){
+			player.ability = 1;
+		}
+	}
+
+    return false;
+}
+
+
 // MAIN ------------------------------------------------------------------------
 function tick() {
 	ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
@@ -164,10 +188,12 @@ function tick() {
 			wave++;
 			for(var i=0; i<waveMax;i++){
 				if( i < waveMax/2){
-					var newEnemy = new Charger(1.5,100,1,1,300,40);
+					var newEnemy = new Charger(1.5+(0.1*wave),100+(10*wave),
+											1+(0.1*wave),1,300+(2.5*wave),40);
 				}
 				else{
-					var newEnemy = new Shooter(2,100,5,40,400,300);
+					var newEnemy = new Shooter(2+(0.15*wave),200+(25*wave),
+											4+(0.5*wave),35,400+(5*wave),300+(5*wave));
 				}
 				var spawnPos = map.getRandomSpawn(newEnemy.getSize())
 				newEnemy.setX(spawnPos[0]);
@@ -189,7 +215,7 @@ function tick() {
 						   arrayEnemies[i].getMaxHP());
 		}
 		else{
-			player.addExp(10);
+			player.addExp(20+(5*wave));
 			arrayEnemies.splice(i,1);
 			spawnSec = 10;
 			i--;
@@ -215,7 +241,9 @@ function tick() {
 	view.drawExpPlayer(player.getExp(),player.getNextLevelExp());
 	view.drawAbilitiesPlayer(player.ability);
 	view.drawAbilitiesCoolDown(player.getCD1(), player.getCD1Max(),
-							   player.getCD2(), player.getCD2Max());
+							   player.getCD2(), player.getCD2Max(),
+							   player.getCD3(), player.getCD3Max(),
+							   player.getCD4(), player.getCD4Max());
 	view.drawLvlPlayer(player.getLevel());
 	view.drawWaveNum(wave);
 	if(arrayEnemies.length == 0){view.drawSpawnSec(spawnSec);}

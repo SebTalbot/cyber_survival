@@ -8,16 +8,24 @@ class Player extends LivingEntity{
 		this.ability = 1;
 		this.cooldown1 = 0;
 		this.cooldown2 = 0;
-		this.cd1Max = 40;
-		this.cd2Max = 120;
+		this.cooldown3 = 0;
+		this.cooldown4 = 0;
+		this.cd1Max = 10;
+		this.cd2Max = 240;
+		this.cd3Max = 180;
+		this.cd4Max = 600;
 	}
 
 	tick(){
-		this.health = 100;
-		if(this.cooldown1 > 0){this.cooldown1-=this.attackRate;}
-		else{this.cooldown1 = 0;}
+		// Abilities cooldown reduction
+		if(this.cooldown1 > 0){this.cooldown1--;}
 		if(this.cooldown2 > 0){this.cooldown2-=this.attackRate;}
 		else{this.cooldown2 = 0;}
+		if(this.cooldown3 > 0){this.cooldown3-=this.attackRate;}
+		else{this.cooldown3 = 0;}
+		if(this.cooldown4 > 0){this.cooldown4-=this.attackRate;}
+		else{this.cooldown4 = 0;}
+
 		this.checkHealth();
 		this.move();
 		if(mouseClick){
@@ -31,6 +39,22 @@ class Player extends LivingEntity{
 				if(this.cooldown2 <= 0){
 					this.cooldown2 = this.cd2Max;
 					arrayProjectiles.push(this.attackTwo());
+				}
+			}
+			else if(this.ability == 3){
+				if(this.cooldown3 <= 0){
+					this.cooldown3 = this.cd3Max;
+					var arrayAttack = this.attackThree();
+					for(var i=0; i<arrayAttack.length;i++){
+						arrayAttack[i].size*=4;
+						arrayProjectiles.push(arrayAttack[i]);
+					}
+				}
+			}
+			else if(this.ability == 4){
+				if(this.cooldown4 <= 0){
+					this.cooldown4 = this.cd4Max;
+						arrayProjectiles.push(this.attackFour());
 				}
 			}
 		}
@@ -64,16 +88,37 @@ class Player extends LivingEntity{
 	}
 
 	basicAttack() {
-		var basicAttack = new Projectile(this.posX, this.posY, 25, 25, ingameCursorX,
-										 ingameCursorY, true, 2);
+		var basicAttack = new Projectile(this.posX, this.posY, 35, this.damage, ingameCursorX,
+										 ingameCursorY, true, false, 2);
 		return basicAttack;
 	}
 
 	attackTwo() {
-		var attackTwo = new Projectile(this.posX, this.posY, 5, 100, ingameCursorX,
-										 ingameCursorY, true, 4);
+		var attackTwo = new Projectile(this.posX, this.posY, 5, this.damage*2, ingameCursorX,
+										 ingameCursorY, true, true, 4);
 		attackTwo.size*=3;
 		return attackTwo;
+	}
+
+	attackThree() {
+		var arrayAttack = [];
+		arrayAttack.push(new Projectile(this.posX, this.posY, 15, 3*this.damage, this.posX+1,this.posY, true, false, 4));
+		arrayAttack.push(new Projectile(this.posX, this.posY, 15, 3*this.damage, this.posX-1,this.posY, true, false, 4));
+		arrayAttack.push(new Projectile(this.posX, this.posY, 15, 3*this.damage, this.posX+1,this.posY+1, true, false, 4));
+		arrayAttack.push(new Projectile(this.posX, this.posY, 15, 3*this.damage, this.posX-1,this.posY-1, true, false, 4));
+		arrayAttack.push(new Projectile(this.posX, this.posY, 15, 3*this.damage, this.posX-1,this.posY+1, true, false, 4));
+		arrayAttack.push(new Projectile(this.posX, this.posY, 15, 3*this.damage, this.posX+1,this.posY-1, true, false, 4));
+		arrayAttack.push(new Projectile(this.posX, this.posY, 15, 3*this.damage, this.posX,this.posY+1, true, false, 4));
+		arrayAttack.push(new Projectile(this.posX, this.posY, 15, 3*this.damage, this.posX,this.posY-1, true, false, 4));
+
+		return arrayAttack;
+	}
+
+	attackFour() {
+		var attackFour = new Projectile(this.posX, this.posY, 10, this.damage*30, ingameCursorX,
+										 ingameCursorY, true, true, 4);
+		attackFour.size*=7;
+		return attackFour;
 	}
 
 	checkLevelUp(){
@@ -81,7 +126,7 @@ class Player extends LivingEntity{
 			this.level++;
 			this.exp = 0;
 			this.speed+=0.2;
-			this.damage+=5;
+			this.damage+=1.5;
 			this.attackRate+=0.5;
 			this.maxHealth+=10;
 			this.gainHealth(10);
@@ -121,5 +166,21 @@ class Player extends LivingEntity{
 
 	getCD2Max(){
 		return this.cd2Max;
+	}
+
+	getCD3(){
+		return this.cooldown3;
+	}
+
+	getCD3Max(){
+		return this.cd3Max;
+	}
+
+	getCD4(){
+		return this.cooldown4;
+	}
+
+	getCD4Max(){
+		return this.cd4Max;
 	}
 }

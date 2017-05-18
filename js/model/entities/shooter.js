@@ -27,7 +27,7 @@ class Shooter extends Enemy{
 			if(this.isInAttackRange()){
 				if(this.canAttack()){
 					var projectile = new Projectile(this.posX, this.posY,10,
-								this.damage,player.posX,player.posY,false,2)
+								this.damage,player.posX,player.posY,false,false,2)
 
 					arrayProjectiles.push(projectile);
 				}
