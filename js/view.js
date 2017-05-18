@@ -18,6 +18,12 @@ class View {
 		this.imgPlayer.src = "images/player.png"
 		this.imgHP = new Image();
 		this.imgHP.src = "images/healthpack.png"
+		this.imgEnemy1 = new Image();
+		this.imgEnemy1.src = "images/enemy1.png"
+		this.imgEnemy2 = new Image();
+		this.imgEnemy2.src = "images/enemy2.png"
+		this.imgEnemy3 = new Image();
+		this.imgEnemy3.src = "images/enemy3.png"
 	}
 
 	// Change draw position A.K.A camera ------------------------------------------
@@ -145,52 +151,58 @@ class View {
 		var color2 = "#FFF";
 		var color3 = "#FFF";
 		var color4 = "#FFF";
+		var text = "";
 
-		if(ability == 1){color1 = "#eeaa00";}
-		if(ability == 2){color2 = "#eeaa00";}
-		if(ability == 3){color3 = "#eeaa00";}
-		if(ability == 4){color4 = "#eeaa00";}
+		if(ability == 1){color1 = "#eeaa00"; text = "Mitraillette";}
+		if(ability == 2){color2 = "#eeaa00"; text = "Arme Solaire";}
+		if(ability == 3){color3 = "#eeaa00"; text = "Nova";}
+		if(ability == 4){color4 = "#eeaa00"; text = "Attaque Ultime";}
 
-		ctx.textAlign="left";
-		ctx.textBaseline="top";
+		ctx.textAlign="center";
+		ctx.textBaseline="middle";
 		ctx.font = this.getPercentY(3)+"px Arial";
 
 		var y =window.innerHeight-this.getPercentX(0.5)-this.getPercentY(2)-
 					this.getPercentX(0.5)-this.getPercentX(4);
 
 		ctx.fillStyle = "#FFF";
-		ctx.fillText("Q",window.innerWidth/2-this.getPercentX(4)*2-this.getPercentX(4),y+this.getPercentY(2));
+		ctx.fillText(text,this.getPercentX(50),y-this.getPercentY(2));
+		ctx.fillText("Q",window.innerWidth/2-this.getPercentX(4)*2-this.getPercentX(4),y+this.getPercentY(4));
 
 		ctx.fillStyle = color1;
 		ctx.fillRect(window.innerWidth/2-this.getPercentX(4)*2-this.getPercentX(1.5),y,
 					this.getPercentX(4),
 					this.getPercentX(4));
 		ctx.fillStyle = "#000";
-		ctx.fillText("1-M",window.innerWidth/2-this.getPercentX(4)*2-this.getPercentX(1.5),y);
+		ctx.fillText("1-M",window.innerWidth/2-this.getPercentX(4)*2-this.getPercentX(1.5)+this.getPercentX(2),
+					y+this.getPercentX(2));
 
 		ctx.fillStyle = color2;
 		ctx.fillRect(window.innerWidth/2-this.getPercentX(4)-this.getPercentX(0.5),y,
 					this.getPercentX(4),
 					this.getPercentX(4));
 		ctx.fillStyle = "#000";
-		ctx.fillText("2-S",window.innerWidth/2-this.getPercentX(4)-this.getPercentX(0.5),y);
+		ctx.fillText("2-S",window.innerWidth/2-this.getPercentX(4)-this.getPercentX(0.5)+this.getPercentX(2),
+					y+this.getPercentX(2));
 
 		ctx.fillStyle = color3;
 		ctx.fillRect(window.innerWidth/2+this.getPercentX(0.5),y,
 					this.getPercentX(4),
 					this.getPercentX(4));
 		ctx.fillStyle = "#000";
-		ctx.fillText("3-N",window.innerWidth/2+this.getPercentX(0.5),y);
+		ctx.fillText("3-N",window.innerWidth/2+this.getPercentX(0.5)+this.getPercentX(2),
+					y+this.getPercentX(2));
 
 		ctx.fillStyle = color4;
 		ctx.fillRect(window.innerWidth/2+this.getPercentX(4)+this.getPercentX(1.5),y,
 					this.getPercentX(4),
 					this.getPercentX(4));
 		ctx.fillStyle = "#000";
-		ctx.fillText("4-U",window.innerWidth/2+this.getPercentX(4)+this.getPercentX(1.5),y);
+		ctx.fillText("4-U",window.innerWidth/2+this.getPercentX(4)+this.getPercentX(1.5)+this.getPercentX(2),
+					y+this.getPercentX(2));
 
 		ctx.fillStyle = "#FFF";
-		ctx.fillText("E",window.innerWidth/2+this.getPercentX(4)+this.getPercentX(6),y+this.getPercentY(2));
+		ctx.fillText("E",window.innerWidth/2+this.getPercentX(4)+this.getPercentX(8),y+this.getPercentY(4));
 	}
 
 	drawAbilitiesCoolDown(cd1,cd1Max,cd2,cd2Max,cd3,cd3Max,cd4,cd4Max){
@@ -229,32 +241,22 @@ class View {
 
 	// Enemy -------------------------------------------------------------------
 	drawEnemy(posX, posY, playerScale, id, health, maxHealth) {
+		var img = null;
+		var deca = playerScale/4;
 		if(id == 1){
-			ctx.fillStyle = "#0a0";
-			ctx.fillRect(posX - this.dpX -(playerScale/2),
-						 posY - this.dpY -(playerScale/2),
-						 playerScale,
-						 playerScale);
+			img = this.imgEnemy1;
 		}
 		else if(id == 2){
-			ctx.fillStyle = "#00a";
-			ctx.fillRect(posX - this.dpX -(playerScale/2),
-						 posY - this.dpY -(playerScale/2),
-						 playerScale,
-						 playerScale);
+			img = this.imgEnemy2;
 		}
 		else if(id == 3){
-			ctx.fillStyle = "#a05";
-			ctx.fillRect(posX - this.dpX -(playerScale/2),
-						 posY - this.dpY -(playerScale/2),
-						 playerScale,
-						 playerScale);
+			img = this.imgEnemy3;
 		}
-		ctx.fillStyle = "#000";
-		ctx.fillRect(posX - this.dpX -(playerScale/2)+2,
-					 posY - this.dpY -(playerScale/2)+2,
-					 playerScale-4,
-					 playerScale-4);
+		ctx.drawImage(img,
+					 posX - this.dpX -(playerScale/2)-deca,
+					 posY - this.dpY -(playerScale/2)-deca,
+					 playerScale+(2*deca),
+					 playerScale+(2*deca));
 
 		// Draw life
 		if(health < maxHealth){

@@ -159,6 +159,17 @@ function tick() {
 	view.drawMap(map.nbTilesX,map.nbTilesY,
 				 map.arrayTiles, map.tileScale);
 
+	// HealthPack
+	for(var i=0;i<arrayHP.length;i++){
+		if(arrayHP[i].tick()){
+			view.drawHealthPack(arrayHP[i].posX, arrayHP[i].posY, arrayHP[i].size);
+		}
+		else{
+			arrayHP.splice(i,1);
+			i--;
+		}
+	}
+
 	// Player
 	if(player.tick()) {
 	view.drawPlayer(player.posX,player.posY,player.size);
@@ -236,16 +247,6 @@ function tick() {
 		}
 		else{
 			arrayProjectiles.splice(i,1);
-			i--;
-		}
-	}
-	// HealthPack
-	for(var i=0;i<arrayHP.length;i++){
-		if(arrayHP[i].tick()){
-			view.drawHealthPack(arrayHP[i].posX, arrayHP[i].posY, arrayHP[i].size);
-		}
-		else{
-			arrayHP.splice(i,1);
 			i--;
 		}
 	}
