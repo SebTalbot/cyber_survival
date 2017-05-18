@@ -216,7 +216,6 @@ function tick() {
 			var rand = Math.floor((Math.random()*10) + 1);
 			if(rand <= 3){
 				arrayHP.push(new HealthPack(arrayEnemies[i].posX, arrayEnemies[i].posY));
-				console.log(arrayHP.length)
 			}
 			// give exp
 			player.addExp(20+(5*wave));

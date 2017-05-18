@@ -349,13 +349,6 @@ class View {
 					 3);
 	}
 
-	getPercentX(value){
-		return (value*window.innerWidth)/100;
-	}
-	getPercentY(value){
-		return (value*window.innerHeight)/100;
-	}
-
 	// Game Over ---------------------------------------------------------------
 	drawGameOver(){
 		ctx.fillStyle = "#FFF";
@@ -364,6 +357,13 @@ class View {
 		ctx.font = this.getPercentY(15)+"px Arial";
 		ctx.fillText("Vous êtes mort",
 			this.getPercentX(50), this.getPercentY(50));
+	}
+
+	getPercentX(value){
+		return (value*window.innerWidth)/100;
+	}
+	getPercentY(value){
+		return (value*window.innerHeight)/100;
 	}
 
 }
