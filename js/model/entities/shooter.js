@@ -2,7 +2,6 @@ class Shooter extends Enemy{
 	constructor(speed,maxHealth,damage,attackRate,visionRange,attackRange){
 		super(speed,maxHealth,damage,attackRate,visionRange,attackRange);
 		this.id = 2;
-		this.choseDestination();
 		this.atick = 100;
 	}
 

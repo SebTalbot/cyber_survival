@@ -4,7 +4,6 @@ class Charger extends Enemy{
 		this.id = 1;
 		this.excitedSpeed = this.speed*2+1;
 		this.calmSpeed = this.speed;
-		this.choseDestination();
 		this.atick = 100;
 	}
 

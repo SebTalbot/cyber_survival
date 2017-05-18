@@ -6,7 +6,6 @@ class Enemy extends LivingEntity{
 		this.attackRange = attackRange;
 		this.size = 40;
 		this.path = [];
-		this.choseDestination();
 	}
 
 	detectPlayer() {
@@ -107,7 +106,7 @@ class Enemy extends LivingEntity{
 
 					// condition pour sortir de la loop et refermer le path
 					if ((Math.abs(node.x - this.destinationX) <  this.speed &&
-						Math.abs(node.y - this.destinationY) <  this.speed) || open.length > 1000) {
+						Math.abs(node.y - this.destinationY) <  this.speed)) {
 						resultNode = node;
 						break;
 					}
@@ -134,28 +133,45 @@ class Enemy extends LivingEntity{
 	}
 
 	choseDestination() {
-		var badDes = true;
-		var distance = 1000;
+		// Chose a destination to randomly patrol. Helps the Astar to avoid infinit loop
+		// There is 3 levels of array to have a less ugly patrol
+		var arrayFirst = map.getArrayOfSurrounds(this.posX, this.posY);
+		var arraySecond = [];
+		for(var i=0; i<arrayFirst.length;i++){
+			var x = arrayFirst[i][0];
+			var y = arrayFirst[i][1];
+			arraySecond.push([x,y]);
+			var temp = map.getArrayOfSurrounds(x,y);
+			for(var j=0; j<temp.length; j++){
+				x = temp[j][0];
+				y = temp[j][1];
+				arraySecond.push([x,y]);
+			}
 
-		while(badDes){
-			var badX = true;
-			while(badX){
-				var dX = Math.floor(Math.random() * (map.getNbTilesX()*map.tileScale));
-				if(Math.abs(dX-this.posX) <= distance){
-					badX = false;
-				}
-			}
-			var badY = true;
-			while(badY){
-				var dY = Math.floor(Math.random() * (map.getNbTilesY()*map.tileScale));
-				if(Math.abs(dY-this.posY) <= distance){
-					badY = false;
-				}
-			}
-			if(!this.hasCollideBoth(dX,dY)){
-				badDes = false;
-			}
 		}
+		var arrayThird = [];
+		for(var i=0; i<arraySecond.length;i++){
+			var x = arraySecond[i][0];
+			var y = arraySecond[i][1];
+			arrayThird.push([x,y]);
+			var temp = map.getArrayOfSurrounds(x,y);
+			for(var j=0; j<temp.length; j++){
+				x = temp[j][0];
+				y = temp[j][1];
+				arrayThird.push([x,y]);
+			}
+
+		}
+
+		var rand = Math.floor(Math.random()*(arrayThird.length-1));
+		var minX = arrayThird[rand][0]*map.tileScale;
+		var maxX = (arrayThird[rand][0]+1)*map.tileScale;
+		var dX = Math.floor(Math.random()*(maxX-minX)) + minX;
+		var minY = arrayThird[rand][1]*map.tileScale;
+		var maxY = (arrayThird[rand][1]+1)*map.tileScale;
+		var dY = Math.floor(Math.random()*(maxY-minY)) + minY;
+
+		console.log(minX, maxX, dX);
 		this.destinationX = dX;
 		this.destinationY = dY;
 	}

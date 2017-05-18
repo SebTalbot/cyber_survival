@@ -9,7 +9,7 @@ var player = null;
 var arrayProjectiles = [];
 var arrayWalls = [];
 var wave = 0;
-var waveMax = 10;
+var waveMax = 20;
 var spawnTick = 0;
 var spawnSec = 10;
 var arrayEnemies = [];
@@ -198,6 +198,7 @@ function tick() {
 				var spawnPos = map.getRandomSpawn(newEnemy.getSize())
 				newEnemy.setX(spawnPos[0]);
 				newEnemy.setY(spawnPos[1]);
+				newEnemy.choseDestination();
 				arrayEnemies.push(newEnemy)
 			}
 		}

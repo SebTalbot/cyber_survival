@@ -58,6 +58,56 @@ class Map {
 		return [posX,posY];
 	}
 
+	getArrayOfSurrounds(x,y){
+		var pos = this.getPositionInArray(x,y);
+		x = pos[0];
+		y = pos[1];
+		var result = [];
+
+		if(y-1 >= 0){
+			if(x-1 >= 0){
+				if(this.arrayTiles[y-1][x-1] != 1){
+					result.push([x-1,y-1]);
+				}
+			}
+			if(x+1 <= this.nbTilesX-1){
+				if(this.arrayTiles[y-1][x+1] != 1){
+					result.push([x+1,y-1]);
+				}
+			}
+			if(this.arrayTiles[y-1][x] != 1){
+				result.push([x,y-1]);
+			}
+		}
+		if(y+1 >= 0){
+			if(x-1 >= 0){
+				if(this.arrayTiles[y+1][x-1] != 1){
+					result.push([x-1,y+1]);
+				}
+			}
+			if(x+1 <= this.nbTilesX-1){
+				if(this.arrayTiles[y+1][x+1] != 1){
+					result.push([x+1,y+1]);
+				}
+			}
+			if(this.arrayTiles[y+1][x] != 1){
+				result.push([x,y+1]);
+			}
+		}
+		if(x-1 >= 0){
+			if(this.arrayTiles[y][x-1] != 1){
+				result.push([x-1,y]);
+			}
+		}
+		if(x+1 <= this.nbTilesX-1){
+			if(this.arrayTiles[y][x+1] != 1){
+				result.push([x+1,y]);
+			}
+		}
+
+		return result;
+	}
+
 	walkCost(x,y){
 		var pos = this.getPositionInArray(x,y);
 
