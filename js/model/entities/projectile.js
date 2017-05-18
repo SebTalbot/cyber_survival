@@ -25,9 +25,9 @@ class Projectile extends DynamicEntity {
 			for(var i=0;i<arrayEnemies.length;i++){
 				var enemy = arrayEnemies[i];
 
-				if(this.isInRange(enemy.getX()-enemy.getSize()/2,
-								  enemy.getY()-enemy.getSize()/2,
-								  enemy.getSize(),
+				if(this.isInRange(enemy.posX-enemy.size/2,
+								  enemy.posY-enemy.size/2,
+								  enemy.size,
 								  this.posX,this.posY)){
 					arrayEnemies[i].takeDamage(this.damage);
 					arrayEnemies[i].gotShot = true;
@@ -38,9 +38,9 @@ class Projectile extends DynamicEntity {
 			}
 		}
 		else {
-			if(this.isInRange(player.getX()-player.getSize()/2,
-							  player.getY()-player.getSize()/2,
-							  player.getSize(),
+			if(this.isInRange(player.posX-player.size/2,
+							  player.posY-player.size/2,
+							  player.size,
 							  this.posX,this.posY)){
 				player.takeDamage(this.damage);
 				if(!this.penetrate){
@@ -58,10 +58,5 @@ class Projectile extends DynamicEntity {
 		}
 
 		return this.alive;
-	}
-
-	// get
-	isFriendly(){
-		return this.friendly;
 	}
 }

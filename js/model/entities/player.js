@@ -134,53 +134,8 @@ class Player extends LivingEntity{
 		}
 	}
 
-	// Set Get
-	getExp(){
-		return this.exp;
-	}
-
-	getNextLevelExp(){
-		return this.nextLevelExp;
-	}
-
 	addExp(value){
 		this.exp+= value;
 		this.checkLevelUp();
-	}
-
-	getLevel(){
-		return this.level;
-	}
-
-	getCD1(){
-		return this.cooldown1;
-	}
-
-	getCD1Max(){
-		return this.cd1Max;
-	}
-
-	getCD2(){
-		return this.cooldown2;
-	}
-
-	getCD2Max(){
-		return this.cd2Max;
-	}
-
-	getCD3(){
-		return this.cooldown3;
-	}
-
-	getCD3Max(){
-		return this.cd3Max;
-	}
-
-	getCD4(){
-		return this.cooldown4;
-	}
-
-	getCD4Max(){
-		return this.cd4Max;
 	}
 }

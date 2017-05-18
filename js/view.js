@@ -356,9 +356,6 @@ class View {
 		return (value*window.innerHeight)/100;
 	}
 
-	getDrawX(){return this.dpX;}
-	getDrawY(){return this.dpY;}
-
 	// Game Over ---------------------------------------------------------------
 	drawGameOver(){
 		ctx.fillStyle = "#FFF";

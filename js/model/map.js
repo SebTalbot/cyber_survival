@@ -113,9 +113,4 @@ class Map {
 
 		return (this.arrayTiles[pos[1]][pos[0]] == 1) ? -1:10;
 	}
-
-	// GET ---------------------------------------------------------------------
-	getNbTilesX(){return this.nbTilesX;}
-	getNbTilesY(){return this.nbTilesY;}
-	getArrayTiles(){return this.arrayTiles;}
 }

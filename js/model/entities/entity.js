@@ -22,15 +22,4 @@ class Entity {
 
 		return result;
 	}
-
-
-	// getter
-	getX(){ return this.posX; }
-	getY(){ return this.posY; }
-	getSize(){ return this.size; }
-
-	// Setter
-	setX(value){ this.posX = value;}
-	setY(value){ this.posY = value;}
-	setSize(value){ this.size = value; }
 }

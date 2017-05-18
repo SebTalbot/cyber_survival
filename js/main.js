@@ -8,7 +8,6 @@ var map = null;
 var player = null;
 var arrayProjectiles = [];
 var arrayHP = [];
-var arrayWalls = [];
 var wave = 0;
 var waveMax = 10;
 var spawnTick = 0;
@@ -50,20 +49,10 @@ window.onload = function () {
 
 	// Model instances
 	map = new Map(1);
-	for(var i=0;i<map.nbTilesY;i++) {
-		for(var j=0;j<map.nbTilesX;j++) {
-			if(map.arrayTiles[i][j] == 1){
-				arrayWalls.push(new Wall(j*map.tileScale,
-										 i*map.tileScale,
-										 map.tileScale));
-			}
-		}
-	}
-
 	player = new Player(5,100,10,1);
-	var spawnPos = map.getRandomSpawn(player.getSize())
-	player.setX(spawnPos[0]);
-	player.setY(spawnPos[1]);
+	var spawnPos = map.getRandomSpawn(player.size)
+	player.posX = spawnPos[0];
+	player.posY = spawnPos[1];
 
 
 	//// View instances
@@ -76,6 +65,7 @@ window.onload = function () {
 // Events ----------------------------------------------------------------------
 
 document.onmousemove = function(e) {
+	// Get Mouse position
 	cursorX = e.pageX;
 	cursorY = e.pageY;
 };
@@ -89,6 +79,7 @@ document.onmouseup = function() {
 };
 
 document.onkeyup = function(e) {
+	// Stop moving on button release
 	if (e.which == 65) leftPush = false;
 	else if (e.which == 68) rightPush = false;
 
@@ -124,7 +115,7 @@ document.onkeydown = function(e) {
 	if (e.which == 51) player.ability = 3;
 	if (e.which == 52) player.ability = 4;
 
-	// Spacebar
+	// Spacebar to start the wave
 	if (e.which == 32) spawnSec = 0;
 };
 
@@ -134,6 +125,7 @@ document.addEventListener("mousewheel", MouseWheelHandler, false);
 // Firefox
 document.addEventListener("DOMMouseScroll", MouseWheelHandler, false);
 function MouseWheelHandler(e) {
+	// Scroll to change ability
 	if (e.wheelDeltaY > 0) {
 		player.ability--;
 		if(player.ability === 0){
@@ -156,28 +148,27 @@ function tick() {
 	ctx.clearRect(0,0,ctx.canvas.width,ctx.canvas.height);
 
 	// View
-	ingameCursorX = cursorX + view.getDrawX();
-	ingameCursorY = cursorY + view.getDrawY();
-	view.changeDrawPosition(player.getX(),
-							player.getY(),
+	ingameCursorX = cursorX + view.dpX;
+	ingameCursorY = cursorY + view.dpY;
+	view.changeDrawPosition(player.posX,
+							player.posY,
 							cursorX, cursorY, ctx);
 
 
 	// Map
-	view.drawMap(map.getNbTilesX(),map.getNbTilesY(),
-				 map.getArrayTiles(), map.tileScale);
+	view.drawMap(map.nbTilesX,map.nbTilesY,
+				 map.arrayTiles, map.tileScale);
 
 	// Player
 	if(player.tick()) {
-	view.drawPlayer(player.getX(),player.getY(),player.getSize());
+	view.drawPlayer(player.posX,player.posY,player.size);
 	}
 	else {
 		view.drawGameOver();
 		return false;
 	}
 
-	// Enemies
-	//// Spawn
+	//// Enemies Spawn
 	if(arrayEnemies.length == 0){
 		spawnTick++;
 		if(spawnTick >= 60){
@@ -200,9 +191,9 @@ function tick() {
 					var newEnemy = new Shooter(3.5+(0.15*wave),200+(25*wave),
 											4+(0.5*wave),35,400+(5*wave),300+(5*wave));
 				}
-				var spawnPos = map.getRandomSpawn(newEnemy.getSize())
-				newEnemy.setX(spawnPos[0]);
-				newEnemy.setY(spawnPos[1]);
+				var spawnPos = map.getRandomSpawn(newEnemy.size)
+				newEnemy.posX = spawnPos[0];
+				newEnemy.posY = spawnPos[1];
 				newEnemy.choseDestination();
 				arrayEnemies.push(newEnemy)
 			}
@@ -210,23 +201,26 @@ function tick() {
 
 	}
 
-	//// Enemies
+	//// Enemies tick
 	for(var i=0;i<arrayEnemies.length;i++){
 		if(arrayEnemies[i].tick()){
-			view.drawEnemy(arrayEnemies[i].getX(),
-						   arrayEnemies[i].getY(),
-						   arrayEnemies[i].getSize(),
-						   arrayEnemies[i].getId(),
-						   arrayEnemies[i].getHp(),
-						   arrayEnemies[i].getMaxHP());
+			view.drawEnemy(arrayEnemies[i].posX,
+						   arrayEnemies[i].posY,
+						   arrayEnemies[i].size,
+						   arrayEnemies[i].id,
+						   arrayEnemies[i].health,
+						   arrayEnemies[i].maxHealth);
 		}
 		else{
+			// 33% chances to generate Healthpack
 			var rand = Math.floor((Math.random()*10) + 1);
 			if(rand <= 3){
 				arrayHP.push(new HealthPack(arrayEnemies[i].posX, arrayEnemies[i].posY));
 				console.log(arrayHP.length)
 			}
+			// give exp
 			player.addExp(20+(5*wave));
+			// rip enemy
 			arrayEnemies.splice(i,1);
 			spawnSec = 10;
 			i--;
@@ -236,10 +230,10 @@ function tick() {
 	// Projectiles
 	for(var i=0;i<arrayProjectiles.length;i++){
 		if(arrayProjectiles[i].tick()){
-			view.drawProjectile(arrayProjectiles[i].getX(),
-				arrayProjectiles[i].getY(),
+			view.drawProjectile(arrayProjectiles[i].posX,
+				arrayProjectiles[i].posY,
 				arrayProjectiles[i].size,
-				arrayProjectiles[i].isFriendly());
+				arrayProjectiles[i].friendly);
 		}
 		else{
 			arrayProjectiles.splice(i,1);
@@ -259,13 +253,13 @@ function tick() {
 
 	//UI -----
 	view.drawHealthPlayer(player.health, player.maxHealth);
-	view.drawExpPlayer(player.getExp(),player.getNextLevelExp());
+	view.drawExpPlayer(player.exp,player.nextLevelExp);
 	view.drawAbilitiesPlayer(player.ability);
-	view.drawAbilitiesCoolDown(player.getCD1(), player.getCD1Max(),
-							   player.getCD2(), player.getCD2Max(),
-							   player.getCD3(), player.getCD3Max(),
-							   player.getCD4(), player.getCD4Max());
-	view.drawLvlPlayer(player.getLevel());
+	view.drawAbilitiesCoolDown(player.cooldown1, player.cd1Max,
+							   player.cooldown2, player.cd2Max,
+							   player.cooldown3, player.cd3Max,
+							   player.cooldown4, player.cd4Max);
+	view.drawLvlPlayer(player.level);
 	view.drawWaveNum(wave);
 	if(arrayEnemies.length == 0){view.drawSpawnSec(spawnSec);}
 	else{view.drawEnemyNum(arrayEnemies.length, waveMax);}

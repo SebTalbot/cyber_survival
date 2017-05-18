@@ -11,8 +11,8 @@ class Enemy extends LivingEntity{
 
 	detectPlayer() {
 		var ret = false;
-		var dX = Math.abs(player.getX() - this.posX);
-		var dY = Math.abs(player.getY() - this.posY);
+		var dX = Math.abs(player.posX - this.posX);
+		var dY = Math.abs(player.posY - this.posY);
 		if((dX^2)+(dY^2) <= (this.visionRange^2)){
 
 			ret = true;
@@ -23,8 +23,8 @@ class Enemy extends LivingEntity{
 
 	isInAttackRange() {
 		var ret = false;
-		var dX = Math.abs(player.getX() - this.posX);
-		var dY = Math.abs(player.getY() - this.posY);
+		var dX = Math.abs(player.posX - this.posX);
+		var dY = Math.abs(player.posY - this.posY);
 
 		if((dX^2)+(dY^2) <= (this.attackRange^2)){
 			ret = true;
@@ -175,6 +175,4 @@ class Enemy extends LivingEntity{
 		this.destinationX = dX;
 		this.destinationY = dY;
 	}
-
-	getId(){ return this.id;}
 }

@@ -5,9 +5,9 @@ class HealthPack extends Entity {
 	}
 
 	tick(){
-		if(this.isInRange(player.getX()-player.getSize()/2,
-						  player.getY()-player.getSize()/2,
-						  player.getSize(),
+		if(this.isInRange(player.posX-player.size/2,
+						  player.posY-player.size/2,
+						  player.size,
 						  this.posX,this.posY)){
 			player.gainHealth(player.maxHealth/10);
 			if(!this.penetrate){
